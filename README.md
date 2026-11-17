@@ -4,7 +4,7 @@ A haunted cat house stitched to a Japanese grimoire. You study JLPT N5 to N1, or
 
 Built for [Kiroween 2026](https://kiroween.devpost.com/), category **Frankenstein**, with Kiro CLI.
 
-![The haunted parlor](docs/screens/house.png)
+![The haunted parlor](docs/screens/house-v2.png)
 
 ## What is inside
 
@@ -12,9 +12,10 @@ Built for [Kiroween 2026](https://kiroween.devpost.com/), category **Frankenstei
 
 - One Halloween living room, lit by an arcade clock: one in-game day is 10 real minutes, from dusk to the witching hour and back.
 - Three cats drawn entirely in code by a procedural rig (no sprite sheets). They wander, groom, nap, hop on the sofa, chase a ball and stalk a feather. Tap to pet, hold to carry.
-- Ten Halloween items, each one also a Japanese word with its voice: pumpkin bed かぼちゃ, coffin かんおけ, ghost sheet おばけ, full-moon lamp まんげつ, bat wings こうもり, witch broom ほうき, cauldron なべ, dead-tree tower かれき, candles ろうそく, spider toy くも.
-- Five of them dress a cat up for a while: vampire (cape, collar, fangs), ghost (a floating sheet with the cat's own face), werewolf (wolf ears, mane, a howl), bat (flies around the room) and witch (hat, flies on the broom). The rest of the time the cats look like themselves.
-- A gym without a gym room: send a cat from the Cats menu and it lifts a barbell in front of the fireplace.
+- Fifteen Halloween items, each one also a Japanese word with its voice. Five are open from the start; the other ten open once all seven mock exams are passed with 80% or more.
+- Six of them dress a cat up for a while: vampire (cape, collar, fangs), ghost (a floating sheet with the cat's own face), werewolf (wolf ears, mane, a howl), bat (flies around the room), witch (hat, flies on the broom) and mummy (wrapped in bandages). The rest of the time the cats look like themselves.
+- Bottom bar: Items, Ball, Feather, Grimoire and Menu. The camera is in the top right.
+- A gym without a gym room: send a cat from the Menu (Cats tab) and it lifts a barbell in front of the fireplace.
 - Photos with a Halloween frame and an album of the last 12.
 - Two stats per cat, nothing else: EXP (level 1 kitten to level 15 senior, the cat grows) and Love (10 hearts).
 
