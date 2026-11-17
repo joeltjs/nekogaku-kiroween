@@ -180,3 +180,5 @@
 .unlock-box ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .unlock-box li { padding: 4px 12px; border-radius: 999px; border: 1px solid #4a3558; color: var(--muted); font-size: .92rem; }
 .unlock-box li.done { border-color: #3f8f58; color: #e8ffee; background: #183022; }
+.g-sound { background: none; border: 0; padding: 0; color: var(--parchment); font: inherit; font-weight: 600; cursor: pointer; }
+.g-sound:hover { color: var(--candle); }

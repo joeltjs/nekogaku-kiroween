@@ -67,8 +67,8 @@ export function startHouse(root: HTMLElement): () => void {
   const canvas = $<HTMLCanvasElement>('canvas.world');
   const world = new World();
   const audio = new Audio();
-  const prefs = (() => { try { return { music: true, effects: true, ...JSON.parse(localStorage.getItem(PREFS_KEY) || '{}') }; } catch { return { music: true, effects: true }; } })();
-  audio.music = prefs.music; audio.effects = prefs.effects;
+  const prefs = (() => { try { return { music: true, effects: true, voice: true, ...JSON.parse(localStorage.getItem(PREFS_KEY) || '{}') }; } catch { return { music: true, effects: true, voice: true }; } })();
+  audio.music = prefs.music; audio.effects = prefs.effects; audio.voice = prefs.voice;
   const renderer = new Renderer(canvas, world);
   let mode: Mode = 'pet', alive = true, last = performance.now(), saveAge = 0, hudAge = 0;
   let placing: { id: ItemId } | { move: string } | null = null;
@@ -118,7 +118,7 @@ export function startHouse(root: HTMLElement): () => void {
       applyRewards(data.rewards);
     } catch { try { const raw = localStorage.getItem(localKey()); if (raw) world.load(JSON.parse(raw)); } catch { /* fresh house */ } }
   }
-  function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ music: audio.music, effects: audio.effects })); } catch { /* fine */ } }
+  function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ music: audio.music, effects: audio.effects, voice: audio.voice })); } catch { /* fine */ } }
   function closeDialogs() { root.querySelectorAll<HTMLDialogElement>('dialog[open]').forEach(d => d.close()); }
   function open(name: string) { closeDialogs(); hidePop(); const d = $<HTMLDialogElement>(`[data-dialog="${name}"]`); d.showModal(); audio.play('tap'); return d; }
   root.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => (b.closest('dialog') as HTMLDialogElement).close()));
@@ -169,10 +169,11 @@ export function startHouse(root: HTMLElement): () => void {
       body.innerHTML = `<div class="settings">
         <label><input type="checkbox" data-pref="music" ${audio.music ? 'checked' : ''}> Music</label>
         <label><input type="checkbox" data-pref="effects" ${audio.effects ? 'checked' : ''}> Sound effects</label>
+        <label><input type="checkbox" data-pref="voice" ${audio.voice ? 'checked' : ''}> Voices</label>
         <p class="hint">Time here is arcade time: one day in the house lasts 10 minutes.</p>
         <button data-signout>Sign out</button>
         <p class="hint"><a href="/credits">Credits and licenses</a></p></div>`;
-      body.querySelectorAll<HTMLInputElement>('[data-pref]').forEach(i => i.addEventListener('change', () => { if (i.dataset.pref === 'music') audio.setMusic(i.checked); else audio.effects = i.checked; savePrefs(); }));
+      body.querySelectorAll<HTMLInputElement>('[data-pref]').forEach(i => i.addEventListener('change', () => { if (i.dataset.pref === 'music') audio.setMusic(i.checked); else if (i.dataset.pref === 'effects') audio.effects = i.checked; else audio.voice = i.checked; savePrefs(); }));
       body.querySelector('[data-signout]')!.addEventListener('click', () => { save(true); void fetch('/api/session', { method: 'DELETE' }).finally(() => { location.href = '/login'; }); });
     }
   }
@@ -341,6 +342,8 @@ export function startHouse(root: HTMLElement): () => void {
   window.addEventListener('resize', onResize);
   const onHide = () => save(true);
   window.addEventListener('pagehide', onHide);
+  const onSound = (e: Event) => { const p = (e as CustomEvent<{ music: boolean; effects: boolean; voice: boolean }>).detail; audio.setMusic(p.music); audio.effects = p.effects; audio.voice = p.voice; };
+  window.addEventListener('nekogaku:sound', onSound);
   void boot();
 
   // Loop
@@ -368,6 +371,7 @@ export function startHouse(root: HTMLElement): () => void {
     alive = false; save(true); audio.stop();
     window.removeEventListener('focus', onFocus);
     window.removeEventListener('resize', onResize); window.removeEventListener('pagehide', onHide);
+    window.removeEventListener('nekogaku:sound', onSound);
     root.innerHTML = '';
   };
 }

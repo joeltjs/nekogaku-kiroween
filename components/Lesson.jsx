@@ -1,11 +1,11 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { readSound } from './sound';
 import { buildQuiz } from '../lib/quiz';
 
-const CAT_NAMES = { cecil: 'Cecil', kuku: 'Kuku', bolu: 'Bolu' };
 
-function play(src) { if (!src) return; const a = new Audio(src); a.volume = .95; a.play().catch(() => {}); }
+function play(src) { if (!src || !readSound().voice) return; const a = new Audio(src); a.volume = .95; a.play().catch(() => {}); }
 function Say({ src, label = 'Play audio' }) {
   if (!src) return null;
   return <button type="button" className="say" onClick={() => play(src)} aria-label={label} title={label}><svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>;
@@ -31,7 +31,6 @@ export default function Lesson({ unit }) {
   const [answers, setAnswers] = useState([]);
   const [picked, setPicked] = useState(null);
   const [result, setResult] = useState(null);
-  const buddy = 'cecil';
   const nextRef = useRef(null);
   useEffect(() => { setSeed(Date.now() % 100000); }, []);
   const quiz = useMemo(() => buildQuiz(unit, seed, { count: 10, pool: unit.pool }), [unit, seed]);
@@ -62,7 +61,7 @@ export default function Lesson({ unit }) {
     const correct = answers.filter(Boolean).length, total = quiz.length;
     setPhase('result'); setResult({ correct, total, pending: true });
     try {
-      const r = await fetch('/api/progress', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ unitId: unit.id, correct, total, cat: buddy, label: unit.title }) });
+      const r = await fetch('/api/progress', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ unitId: unit.id, correct, total, label: unit.title }) });
       const data = await r.json();
       if (!r.ok) throw new Error(data.error || 'save failed');
       setResult({ correct, total, ...data });
@@ -139,10 +138,10 @@ export default function Lesson({ unit }) {
       <p className="score"><b>{r.correct}</b> / {r.total}</p>
       {r.pending && <p>Writing it in the grimoire…</p>}
       {r.error && <p className="error">Could not save the result ({r.error}). Your answers still count here.</p>}
-      {r.exp > 0 && <p className="reward"><b>{CAT_NAMES[r.cat] ?? 'Your cat'}</b> gains <b>+{r.exp} EXP</b> in the haunted house.</p>}
+      {r.exp > 0 && <p className="reward">Every cat gains <b>+{r.exp} EXP</b> in the haunted house.</p>}
       {r.best != null && <p className="hint">Best score here: {r.best}/{r.total} · attempts: {r.attempts}</p>}
       <div className="lesson-nav">
-        <Link className="primary" href="/">Visit {CAT_NAMES[r.cat] ?? 'the cats'}</Link>
+        <Link className="primary" href="/">Visit the cats</Link>
         <button type="button" onClick={() => restart('quiz')}>Retry the trial</button>
         <button type="button" onClick={() => restart('cards')}>Study the cards again</button>
         {unit.next && <Link href={`/study/${unit.track}/${unit.next}`}>Next unit</Link>}

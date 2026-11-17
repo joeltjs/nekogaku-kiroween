@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Haunt from '../../components/Haunt';
 import SignOut from '../../components/SignOut';
+import SoundToggle from '../../components/SoundToggle';
 import './study.css';
 
 export default function StudyLayout({ children }) {
@@ -12,6 +13,7 @@ export default function StudyLayout({ children }) {
         <Link href="/study" className="g-brand">The Grimoire <small>NekoGaku</small></Link>
         <nav aria-label="Main">
           <Link href="/">Haunted house</Link>
+          <SoundToggle />
           <Link href="/credits">Credits</Link>
           <SignOut />
         </nav>

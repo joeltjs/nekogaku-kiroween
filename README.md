@@ -23,7 +23,7 @@ Built for [Kiroween 2026](https://kiroween.devpost.com/), category **Frankenstei
 - SSW Kaigo (nursing care) and SSW Food (food and beverage manufacturing): 16 units written in English for this app, with the Japanese key terms and scenario questions.
 - Every unit: study cards with VOICEVOX audio, then a 10-question quiz. Every answer is explained, and a wrong pick says what that option actually means.
 - A mock exam per track: 20 mixed questions, a 10-minute clock, then a review of every question.
-- A score of 80% seals a unit. The EXP waits on the server and the house hands it to Cecil.
+- A score of 80% seals a unit. The EXP waits on the server and the house hands it to every cat.
 
 **Login** (`/login`): sign in with an access code (`NEKO-XXXX-XXXX`). Your cats and your progress follow the code to any device.
 

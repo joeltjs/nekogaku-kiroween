@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { buildExam } from '../lib/quiz';
 import { Explain } from './Lesson';
 
-const CAT_NAMES = { cecil: 'Cecil', kuku: 'Kuku', bolu: 'Bolu' };
 const LIMIT = 10 * 60;
 const fmt = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
 
@@ -19,7 +18,6 @@ export default function Exam({ track, units }) {
   const [done, setDone] = useState(false);
   const [left, setLeft] = useState(LIMIT);
   const [result, setResult] = useState(null);
-  const buddy = 'cecil';
   useEffect(() => { setSeed(Date.now() % 100000); }, []);
   const exam = useMemo(() => buildExam(units, seed, 20), [units, seed]);
   useEffect(() => {
@@ -34,7 +32,7 @@ export default function Exam({ track, units }) {
     const correct = exam.reduce((s, q, k) => s + (final[k] === q.answer ? 1 : 0), 0), total = exam.length;
     setResult({ correct, total, pending: true });
     try {
-      const r = await fetch('/api/progress', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ unitId: `exam-${track.id}`, correct, total, cat: buddy, label: `${track.title} mock exam` }) });
+      const r = await fetch('/api/progress', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ unitId: `exam-${track.id}`, correct, total, label: `${track.title} mock exam` }) });
       const data = await r.json();
       if (!r.ok) throw new Error(data.error || 'save failed');
       setResult({ correct, total, ...data });
@@ -80,7 +78,7 @@ export default function Exam({ track, units }) {
       <p className="score"><b>{r.correct}</b> / {r.total}</p>
       <p className="hint">{pass ? 'Pass line: 60%. Well done.' : 'Pass line: 60%. Read the explanations below and try again.'} Time used: {fmt(LIMIT - left)}</p>
       <p className="hint">{r.correct * 100 >= r.total * 80 ? 'This score counts toward opening the last ten Halloween items.' : 'Score 80% or more to count toward opening the last ten Halloween items.'}</p>
-      {r.exp > 0 && <p className="reward"><b>{CAT_NAMES[r.cat] ?? 'Your cat'}</b> gains <b>+{r.exp} EXP</b> in the haunted house.</p>}
+      {r.exp > 0 && <p className="reward">Every cat gains <b>+{r.exp} EXP</b> in the haunted house.</p>}
       {r.error && <p className="error">Could not save the result ({r.error}).</p>}
       <div className="lesson-nav">
         <Link className="primary" href="/">Visit the cats</Link>

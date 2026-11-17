@@ -18,6 +18,7 @@ interface MusicMeta { overlap: number; tracks: Record<string, { file: string; lo
 export class Audio {
   effects = true;
   music = true;
+  voice = true;
   private ctx?: AudioContext;
   private master?: GainNode;
   private musicBus?: GainNode;
@@ -164,5 +165,5 @@ export class Audio {
   }
   stop() { this.track = ''; window.clearTimeout(this.loopTimer); for (const s of this.sources) { try { s.stop(); } catch { /* fine */ } } this.sources = []; void this.ctx?.close(); this.ctx = undefined; }
   /** Plays a generated VOICEVOX clip (the item words). */
-  say(src: string) { if (!this.effects) return; const a = new window.Audio(src); a.volume = .9; void a.play().catch(() => undefined); }
+  say(src: string) { if (!this.voice) return; const a = new window.Audio(src); a.volume = .9; void a.play().catch(() => undefined); }
 }
