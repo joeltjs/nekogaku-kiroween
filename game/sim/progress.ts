@@ -35,8 +35,6 @@ export function rewardForQuiz(correct: number, total: number): number {
   return c * 4 + (t > 0 && c === t ? 10 : 0);
 }
 
-export const GYM_SET_EXP = 12;
-export const GYM_SET_LOVE = .3;
 export const PET_LOVE = .15;
 export const PLAY_LOVE = .1;
 

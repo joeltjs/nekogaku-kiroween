@@ -14,9 +14,7 @@ Built for [Kiroween 2026](https://kiroween.devpost.com/), category **Frankenstei
 - Three cats drawn entirely in code by a procedural rig (no sprite sheets). They wander, groom, nap, hop on the sofa, chase a ball and stalk a feather. Tap to pet, hold to carry.
 - Fifteen Halloween items, each one also a Japanese word with its voice. Five are open from the start; the other ten open once all seven mock exams are passed with 80% or more.
 - Six of them dress a cat up for a while: vampire (cape, collar, fangs), ghost (a floating sheet with the cat's own face), werewolf (wolf ears, mane, a howl), bat (flies around the room), witch (hat, flies on the broom) and mummy (wrapped in bandages). The rest of the time the cats look like themselves.
-- Bottom bar: Items, Ball, Feather, Grimoire and Menu. The camera is in the top right.
-- A gym without a gym room: send a cat from the Menu (Cats tab) and it lifts a barbell in front of the fireplace.
-- Photos with a Halloween frame and an album of the last 12.
+- Bottom bar: Items, Ball, Feather, Grimoire and Menu.
 - Two stats per cat, nothing else: EXP (level 1 kitten to level 15 senior, the cat grows) and Love (10 hearts).
 
 **The grimoire** (`/study`)
@@ -25,7 +23,7 @@ Built for [Kiroween 2026](https://kiroween.devpost.com/), category **Frankenstei
 - SSW Kaigo (nursing care) and SSW Food (food and beverage manufacturing): 16 units written in English for this app, with the Japanese key terms and scenario questions.
 - Every unit: study cards with VOICEVOX audio, then a 10-question quiz. Every answer is explained, and a wrong pick says what that option actually means.
 - A mock exam per track: 20 mixed questions, a 10-minute clock, then a review of every question.
-- A score of 80% seals a unit. The EXP waits on the server and the house hands it to your study buddy cat.
+- A score of 80% seals a unit. The EXP waits on the server and the house hands it to Cecil.
 
 **Login** (`/login`): sign in with an access code (`NEKO-XXXX-XXXX`). Your cats and your progress follow the code to any device.
 
@@ -79,7 +77,6 @@ The full write-up is in [docs/KIRO.md](docs/KIRO.md). In short: the spec in `.ki
 
 ## Earlier code in this project
 
-Kiroween asks for new projects and for a declaration of earlier code. This repository was started during the submission period. One part was brought in from the author's private, larger NekoGaku app: the procedural cat rig in `game/art/` (the cats' look, body mould, poses, walking frames, clips, emotions, emote marks, barbell prop). Everything else (the room, the items, the costumes, the simulation, the arcade clock, the grimoire, the database, accounts, the voice and music pipelines as used here, all tests and all `.kiro` files) was written for this repository. The music synthesizer started from the author's earlier script and was rewritten for the two Halloween pieces.
 
 ## Credits
 

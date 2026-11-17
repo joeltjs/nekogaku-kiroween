@@ -234,8 +234,8 @@ export const CLIPS = {
   sleepBelly: { loop: true, fn: ({ t, seed }) => { const p = /* A14: asleep on its back the head lies as it does awake (upright, tipped further back), not upside down: its ears went through the floor. */ sleepLayer({ ...BELLY_AWAKE, headRot: -.5, headY: -32 }, t, seed, 4.4); return { ...p, eyeStyle: 'closed', blush: .3, mouth: 'w' }; } },
   sleepSprawl: { loop: true, fn: ({ t, seed }) => sleepLayer(SPRAWL, t, seed, 4.6) },
   sleepSuperman: { loop: true, fn: ({ t, seed }) => sleepLayer(SUPERMAN, t, seed, 4.6) },
-  // Funny sleeps (the reference style-style variety). On the back, frog legs, mouth hanging open, snoring.
-  sleepSnore: { loop: true, fn: ({ t, seed }) => { const p = sleepLayer({ ...BELLY, eyeStyle: 'closed', bnX: -30, bnY: -40, bfX: -4, bfY: -42, fnX: 22, fnY: -40, ffX: 30, ffY: -38, blush: .3 }, t, seed, 4.6); const snore = (sin(t / 4.6 * TAU) + 1) / 2; return { ...p, mouth: 'open', mouthOpen: .25 + snore * .35 }; } },
+  // Funny sleeps (the reference style-style variety). On the back, frog legs, mouth hanging open, snoring. The head stays upright.
+  sleepSnore: { loop: true, fn: ({ t, seed }) => { const p = sleepLayer({ ...BELLY_AWAKE, tuck: BELLY.tuck, tuckBack: BELLY.tuckBack, headRot: -.5, headY: -32, eyeStyle: 'closed', bnX: -30, bnY: -40, bfX: -4, bfY: -42, fnX: 22, fnY: -40, ffX: 30, ffY: -38, blush: .3 }, t, seed, 4.6); const snore = (sin(t / 4.6 * TAU) + 1) / 2; return { ...p, mouth: 'open', mouthOpen: .25 + snore * .35 }; } },
   // Loaf with the chin resting on the front paws.
   sleepChin: { loop: true, fn: ({ t, seed }) => sleepLayer({ ...LOAF, eyeStyle: 'closed', headY: LOAF.headY + 9, headX: LOAF.headX + 6, headRot: .12, fnX: 30, ffX: 36 }, t, seed, 4.2) },
   // On the side, the tip of the tongue sticking out ("blep").

@@ -19,8 +19,8 @@ export default function Exam({ track, units }) {
   const [done, setDone] = useState(false);
   const [left, setLeft] = useState(LIMIT);
   const [result, setResult] = useState(null);
-  const [buddy, setBuddy] = useState('cecil');
-  useEffect(() => { setSeed(Date.now() % 100000); try { setBuddy(localStorage.getItem('nekogaku-buddy') || 'cecil'); } catch { /* fine */ } }, []);
+  const buddy = 'cecil';
+  useEffect(() => { setSeed(Date.now() % 100000); }, []);
   const exam = useMemo(() => buildExam(units, seed, 20), [units, seed]);
   useEffect(() => {
     if (done || !seed) return;

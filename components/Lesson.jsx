@@ -23,7 +23,7 @@ export function Explain({ q, picked }) {
   );
 }
 
-/** Study cards, then a quiz, then the result that feeds the study buddy cat (R10.4, R10.6). */
+/** Study cards, then a quiz, then the result that feeds Cecil (R10.4, R10.6). */
 export default function Lesson({ unit }) {
   const [phase, setPhase] = useState('cards');
   const [i, setI] = useState(0);
@@ -31,9 +31,9 @@ export default function Lesson({ unit }) {
   const [answers, setAnswers] = useState([]);
   const [picked, setPicked] = useState(null);
   const [result, setResult] = useState(null);
-  const [buddy, setBuddy] = useState('cecil');
+  const buddy = 'cecil';
   const nextRef = useRef(null);
-  useEffect(() => { try { setBuddy(localStorage.getItem('nekogaku-buddy') || 'cecil'); } catch { /* fine */ } setSeed(Date.now() % 100000); }, []);
+  useEffect(() => { setSeed(Date.now() % 100000); }, []);
   const quiz = useMemo(() => buildQuiz(unit, seed, { count: 10, pool: unit.pool }), [unit, seed]);
   const cards = unit.cards;
 

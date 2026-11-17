@@ -21,5 +21,3 @@ export const randomFloorPoint = (rand: () => number): Pt => ({ x: WALK.x0 + rand
 
 /** The sofa seat, a place to sit up off the floor. */
 export const SOFA = { x0: 190, x1: 520, y: FLOOR_TOP + 46, z: 62 } as const;
-/** Where the barbell set happens (in front of the fireplace). */
-export const GYM_SPOT: Pt = { x: 1030, y: FLOOR_TOP + 300 };

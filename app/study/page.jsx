@@ -37,7 +37,7 @@ export default async function StudyHub() {
     <>
       <section className="g-hero">
         <h1>Open the grimoire</h1>
-        <p>Every spell is a Japanese word. Study the cards, pass the quiz, and your study buddy cat in the haunted house gains EXP. Score 80% or more to seal a unit.</p>
+        <p>Every spell is a Japanese word. Study the cards, pass the quiz, and Cecil, the first cat in the haunted house, gains EXP. Score 80% or more to seal a unit.</p>
       </section>
       <section className="unlock-box" aria-labelledby="unlock-title">
         <h2 id="unlock-title">Halloween items: {open} of {ITEM_IDS.length} open</h2>

@@ -7,7 +7,7 @@ import { rewardForQuiz } from '../../../game/sim/progress';
 export const dynamic = 'force-dynamic';
 const CATS = new Set(['cecil', 'kuku', 'bolu']);
 
-/** Saves a finished quiz and queues the EXP it is worth for the study buddy cat (R10.6). */
+/** Saves a finished quiz and queues the EXP it is worth for the cat (R10.6). */
 export async function POST(req) {
   const player = await currentPlayer();
   if (!player) return NextResponse.json({ error: 'Sign in first' }, { status: 401 });

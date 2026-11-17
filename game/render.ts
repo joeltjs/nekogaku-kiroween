@@ -3,8 +3,6 @@
  * costumes, particles, the ball and the feather, then the hour's darkness with warm lights.
  */
 import { drawCat } from './art/cat-rig';
-import { liftPhase } from './art/cat-clips';
-import { drawBarbell } from './art/gym-props';
 import { drawEmote } from './art/emote';
 import { clamp } from './core/math';
 import { drawCostume, type Anchors } from './halloween/costumes';
@@ -13,8 +11,6 @@ import { WINDOW, drawLighting, drawRoomLive, drawSky, paintRoom, type RoomArt } 
 import { ROOM_H, ROOM_W, type Pt } from './sim/room';
 import { CAT_SCALE, type Cat, type Placed, type World } from './sim/world';
 
-/** Confetti colours: pumpkin, candle, ghost-lilac, bat-green, blood-red. */
-const CONFETTI = ['#ff8a3d', '#ffd25e', '#c9b8ff', '#9dffb0', '#e0455c'];
 
 export class Renderer {
   readonly ctx: CanvasRenderingContext2D;
@@ -49,8 +45,6 @@ export class Renderer {
     this.camX = clamp(this.camX - dx / this.zoom, 0, Math.max(0, ROOM_W - this.vw / this.zoom));
     this.camY = clamp(this.camY - dy / this.zoom, 0, Math.max(0, ROOM_H - this.vh / this.zoom));
   }
-  /** Brings a world point into view (for following the gym cat). */
-  lookAt(x: number) { this.camX = clamp(x - this.vw / this.zoom / 2, 0, Math.max(0, ROOM_W - this.vw / this.zoom)); }
   toWorld(sx: number, sy: number): Pt { return { x: sx / this.zoom + this.camX, y: sy / this.zoom + this.camY }; }
   toScreen = (x: number, y: number): Pt => ({ x: (x - this.camX) * this.zoom, y: (y - this.camY) * this.zoom });
 
@@ -121,9 +115,7 @@ export class Renderer {
     g.scale(Math.max(.82, Math.abs(c.turn)), 1);
     let clipBelow: number | undefined;
     if (c.act.k === 'use') { const it = w.items.find(i => i.uid === (c.act as { item: string }).item), rim = it && ITEMS[it.id].use.rim; if (it && rim) clipBelow = ((it.y - rim) - (c.y - c.z)) / unit; }
-    const lifting = c.clip === 'lift';
-    const props = lifting ? (cx: CanvasRenderingContext2D, paws: { near: Pt; far: Pt }) => { const ph = liftPhase(c.clipT); drawBarbell(cx, paws.near, paws.far, ph.resting ? 0 : ph.up * (ph.c > .3 && ph.c < .65 ? 1 : .4)); } : undefined;
-    drawCat(g, c.pose, c.look, phys, { facing: c.facing, scale: CAT_SCALE, blink: c.blink, time: w.time + c.seed, clipBelow, props });
+    drawCat(g, c.pose, c.look, phys, { facing: c.facing, scale: CAT_SCALE, blink: c.blink, time: w.time + c.seed, clipBelow });
     g.restore();
     if (c.costume) drawCostume(g, c.costume, 'front', a);
     if (c.act.k === 'held') this.drawHand(c);
@@ -174,7 +166,6 @@ export class Renderer {
       else if (p.kind === 'spark') { g.fillStyle = '#ffd25e'; g.beginPath(); for (let i = 0; i < 8; i++) { const b = i / 8 * Math.PI * 2, r = i % 2 ? 4 : 11; g.lineTo(Math.cos(b) * r, Math.sin(b) * r); } g.fill(); }
       else if (p.kind === 'puff') { g.fillStyle = '#e9e4f7'; g.beginPath(); g.arc(0, 0, 10 + u * 18, 0, Math.PI * 2); g.fill(); }
       else if (p.kind === 'note') { g.fillStyle = '#ffcf5a'; g.font = '800 26px system-ui, sans-serif'; g.fillText('♪', 0, 0); }
-      else if (p.kind === 'confetti') { g.rotate(p.age * 7 + p.x); g.fillStyle = CONFETTI[Math.abs(Math.floor(p.x)) % CONFETTI.length]; g.fillRect(-7, -4, 14, 8); }
       g.restore();
     }
   }

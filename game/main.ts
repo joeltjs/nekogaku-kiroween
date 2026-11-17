@@ -11,13 +11,10 @@ import { PHASE_LABELS, clockText } from './sim/clock';
 import { MAX_LOVE, levelProgress } from './sim/progress';
 import { allExamsPassed, examsPassed as passedList, trackName, unlockText } from './sim/unlock';
 import { clampToFloor, type Pt } from './sim/room';
-import { CAT_BLURBS, CAT_NAMES, World, type Cat } from './sim/world';
-import { SLOT_CATS, SLOT_COSTUMES, SLOT_COUNT, SLOT_PERK_LOVE, slotCount, slotKey } from './sim/album';
+import { CAT_BLURBS, World, type Cat } from './sim/world';
 import { AGE_LABELS, ageOf, idealWeight, physique } from './art/cat-look';
 
 const SAVE_KEY = 'nekogaku-house-v1';
-const ALBUM_KEY = 'nekogaku-album-v1';
-const BUDDY_KEY = 'nekogaku-buddy';
 const PREFS_KEY = 'nekogaku-prefs';
 type Mode = 'pet' | 'ball' | 'feather';
 
@@ -30,8 +27,6 @@ const ICON = {
   items: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 13h20v13H6z" fill="#c69a68" stroke="#211c1c" stroke-width="2" stroke-linejoin="round"/><path d="M4 9h24v5H4z" fill="#8a6441" stroke="#211c1c" stroke-width="2" stroke-linejoin="round"/><path d="M14 9h4v17h-4z" fill="#f08a2c" stroke="#211c1c" stroke-width="1.6"/></svg>',
   ball: '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" fill="#f08a2c" stroke="#211c1c" stroke-width="2"/><path d="M5.5 13.5h21v5h-21z" fill="#2b1f2e"/><circle cx="16" cy="16" r="11" fill="none" stroke="#211c1c" stroke-width="2"/></svg>',
   feather: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M27 3 14 18" stroke="#6e4a2c" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="11" cy="23" rx="4" ry="8" transform="rotate(30 11 23)" fill="#7d4b9c" stroke="#211c1c" stroke-width="1.6"/><ellipse cx="14" cy="24" rx="3.4" ry="7.5" transform="rotate(-5 14 24)" fill="#f08a2c" stroke="#211c1c" stroke-width="1.6"/></svg>',
-  gym: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 16h18" stroke="#9aa0ad" stroke-width="3"/><rect x="3" y="9" width="5" height="14" rx="1.5" fill="#3a3442" stroke="#211c1c" stroke-width="1.8"/><rect x="24" y="9" width="5" height="14" rx="1.5" fill="#3a3442" stroke="#211c1c" stroke-width="1.8"/></svg>',
-  photo: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="9" width="26" height="18" rx="4" fill="#e9dcc0" stroke="#211c1c" stroke-width="2"/><path d="M11 9l2-4h6l2 4" fill="#e9dcc0" stroke="#211c1c" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="18" r="5.5" fill="#2b1f2e" stroke="#211c1c" stroke-width="2"/><circle cx="14.5" cy="16.5" r="1.6" fill="#fff"/></svg>',
   menu: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4c-6 0-9 4-9 9 0 4 2 6 2 9h14c0-3 2-5 2-9 0-5-3-9-9-9z" fill="#f4f1ff" stroke="#211c1c" stroke-width="2" stroke-linejoin="round"/><circle cx="12.5" cy="13" r="1.8" fill="#211c1c"/><circle cx="19.5" cy="13" r="1.8" fill="#211c1c"/><path d="M9 22h14l-2 4-2-2-3 3-3-3-2 2z" fill="#f4f1ff" stroke="#211c1c" stroke-width="2" stroke-linejoin="round"/></svg>',
   book: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 6c4-1.5 7-1 11 1.5v19C12 24 9 23.5 5 25z" fill="#5b2a4a" stroke="#211c1c" stroke-width="2" stroke-linejoin="round"/><path d="M27 6c-4-1.5-7-1-11 1.5v19c4-2.5 7-3 11-1.5z" fill="#7a3d63" stroke="#211c1c" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 3-4" stroke="#ffcf5a" stroke-width="1.8" fill="none"/></svg>',
 };
@@ -43,7 +38,6 @@ export function startHouse(root: HTMLElement): () => void {
   <header class="hud-top">
     <div class="place"><strong>The Haunted Parlor</strong><span data-clock>Day 1 · 18:00</span></div>
     <div class="hud-right">
-      <button class="round" data-act="photo" aria-label="Take a photo">${ICON.photo}</button>
     </div>
   </header>
   <div class="mode" data-mode hidden><span data-mode-text></span><button data-act="mode-exit" aria-label="Done">×</button></div>
@@ -59,7 +53,7 @@ export function startHouse(root: HTMLElement): () => void {
   <div class="item-pop" data-pop hidden></div>
   <dialog class="sheet" data-dialog="menu" aria-label="Menu">
     <div class="sheet-head"><h2>The House</h2><button class="x" data-close aria-label="Close">×</button></div>
-    <div class="tabs" role="tablist"><button role="tab" data-tab="cats">Cats</button><button role="tab" data-tab="album">Album</button><button role="tab" data-tab="settings">Settings</button></div>
+    <div class="tabs" role="tablist"><button role="tab" data-tab="cats">Cats</button><button role="tab" data-tab="settings">Settings</button></div>
     <section data-menu-body></section>
   </dialog>
   <dialog class="sheet" data-dialog="items" aria-label="Items">
@@ -67,11 +61,6 @@ export function startHouse(root: HTMLElement): () => void {
     <p class="hint">Pick an item, then tap the floor to place it. Each one teaches a Japanese word.</p>
     <p class="hint unlock-hint" data-unlock-hint></p>
     <div class="item-grid" data-item-grid></div>
-  </dialog>
-  <dialog class="sheet" data-dialog="photo" aria-label="Photo">
-    <div class="sheet-head"><h2>Snap!</h2><button class="x" data-close aria-label="Close">×</button></div>
-    <img data-photo alt="Photo of the cats">
-    <div class="row"><a class="primary" data-photo-save download="nekogaku-halloween.png">Save photo</a><span class="hint">Also kept in the Album.</span></div>
   </dialog>
 </div>`;
   const $ = <T extends Element = HTMLElement>(sel: string) => root.querySelector(sel) as T;
@@ -90,8 +79,6 @@ export function startHouse(root: HTMLElement): () => void {
     banner: (title, text) => banner(title, text),
     costume: (cat, id) => {
       void voiceUrl(COSTUMES[id].jp).then(u => window.setTimeout(() => audio.say(u), 600));
-      // The moment goes into the album, as long as the house is on screen.
-      window.setTimeout(() => { if (root.getClientRects().length) takePhoto(`${cat.name} is a ${COSTUMES[id].name.toLowerCase()}`, false); }, 1400);
     },
   };
 
@@ -162,7 +149,6 @@ export function startHouse(root: HTMLElement): () => void {
     root.querySelectorAll<HTMLElement>('[data-tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
     const body = $('[data-menu-body]');
     if (tab === 'cats') {
-      const buddy = localStorage.getItem(BUDDY_KEY) || 'cecil';
       body.innerHTML = world.cats.map(c => {
         const p = levelProgress(c.exp), age = AGE_LABELS[ageOf(p.level)];
         return `<article class="cat-card" data-cat="${c.id}">
@@ -173,21 +159,12 @@ export function startHouse(root: HTMLElement): () => void {
             <div class="hearts" aria-label="Love ${c.love.toFixed(1)} of 10">${hearts(c.love)}</div>
             <p class="blurb">${esc(CAT_BLURBS[c.id])}</p>
             <p class="costume-now">${c.costume ? `Dressed as a <b>${COSTUMES[c.costume].name.toLowerCase()}</b> <span lang="ja">${COSTUMES[c.costume].jp}</span> for a little while.` : 'Give a Halloween item to dress up: the coffin makes a vampire, the ghost sheet a ghost, the full-moon lamp a werewolf, the bat wings a bat, the broom a witch.'}</p>
-            <button class="buddy" data-gym>Send to the barbell</button>
-            <button class="buddy" data-buddy aria-pressed="${buddy === c.id}">${buddy === c.id ? 'Study buddy' : 'Make study buddy'}</button>
           </div></article>`;
       }).join('');
       body.querySelectorAll<HTMLElement>('[data-cat]').forEach(card => {
         const cat = world.getCat(card.dataset.cat!)!;
         paintCat(card.querySelector('canvas')!, cat);
-        card.querySelector('[data-buddy]')!.addEventListener('click', () => { localStorage.setItem(BUDDY_KEY, cat.id); audio.play('meow', cat.id); renderMenu(); });
-        card.querySelector('[data-gym]')!.addEventListener('click', () => { closeDialogs(); world.startGym(cat); renderer.lookAt(1030); toast(`${cat.name} heads to the barbell.`); });
       });
-    } else if (tab === 'album') {
-      const album = readAlbum();
-      body.innerHTML = slotGridHtml() + (album.length ? `<div class="album">${album.map(p => `<figure><img src="${p.data}" alt="Photo from day ${p.day}"><figcaption>${p.note ? `${esc(p.note)} · ` : ''}Day ${p.day} · ${esc(p.time)}<span><a href="${p.data}" download="nekogaku-${p.id}.jpg">Save</a><button data-del="${p.id}">Delete</button></span></figcaption></figure>`).join('')}</div>`
-        : '<p class="empty">Nothing here yet. Take a photo with the camera button, or dress a cat up with a Halloween item and its moment is saved here.</p>');
-      body.querySelectorAll<HTMLElement>('[data-del]').forEach(b => b.addEventListener('click', () => { writeAlbum(readAlbum().filter(p => p.id !== b.dataset.del)); renderMenu(); }));
     } else {
       body.innerHTML = `<div class="settings">
         <label><input type="checkbox" data-pref="music" ${audio.music ? 'checked' : ''}> Music</label>
@@ -198,43 +175,6 @@ export function startHouse(root: HTMLElement): () => void {
       body.querySelectorAll<HTMLInputElement>('[data-pref]').forEach(i => i.addEventListener('change', () => { if (i.dataset.pref === 'music') audio.setMusic(i.checked); else audio.effects = i.checked; savePrefs(); }));
       body.querySelector('[data-signout]')!.addEventListener('click', () => { save(true); void fetch('/api/session', { method: 'DELETE' }).finally(() => { location.href = '/login'; }); });
     }
-  }
-
-  // Album
-  interface Photo { id: string; at: number; day: number; time: string; data: string; note?: string }
-  function readAlbum(): Photo[] { try { const a = JSON.parse(localStorage.getItem(ALBUM_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch { return []; } }
-  /** Each cat's row of costume slots: opened ones show the costume name, the rest say Locked. */
-  function slotGridHtml(): string {
-    const open = world.albumSlots;
-    const rows = SLOT_CATS.map(cat => `<div class="slot-row"><b>${CAT_NAMES[cat]}</b>${SLOT_COSTUMES.map(k => {
-      const on = open.includes(slotKey(cat, k));
-      return `<span class="slot${on ? ' open' : ''}">${on ? COSTUMES[k].name : 'Locked'}</span>`;
-    }).join('')}</div>`).join('');
-    return `<section class="slots" aria-label="Costume album slots"><h3>Costume slots: ${slotCount(open)} of ${SLOT_COUNT} open</h3>${rows}<p class="hint">An open costume gives its cat ${SLOT_PERK_LOVE} Love each time it wears that costume again.</p></section>`;
-  }
-  function writeAlbum(a: Photo[]) {
-    let list = a.slice(0, 12);
-    while (list.length) { try { localStorage.setItem(ALBUM_KEY, JSON.stringify(list)); return; } catch { list = list.slice(0, -1); } }
-    localStorage.removeItem(ALBUM_KEY);
-  }
-  function takePhoto(note = '', show = true) {
-    if (show) audio.play('shutter');
-    const clock = world.clock, w = 1200, h = Math.round(w * renderer.vh / renderer.vw), pad = 34;
-    const c = document.createElement('canvas'); c.width = w; c.height = h + pad * 2 + 40;
-    const g = c.getContext('2d')!;
-    g.fillStyle = '#1d1424'; g.fillRect(0, 0, c.width, c.height);
-    g.drawImage(canvas, pad, pad, w - pad * 2, h);
-    g.strokeStyle = '#ff8a3d'; g.lineWidth = 6; g.strokeRect(pad, pad, w - pad * 2, h);
-    // Little pumpkins in the corners of the frame.
-    for (const [x, y] of [[pad, pad], [w - pad, pad], [pad, pad + h], [w - pad, pad + h]]) { g.fillStyle = '#f08a2c'; g.beginPath(); g.ellipse(x, y, 20, 15, 0, 0, Math.PI * 2); g.fill(); g.fillStyle = '#6b8f3c'; g.fillRect(x - 2, y - 22, 4, 8); }
-    g.fillStyle = '#e9dcc0'; g.font = '700 30px Georgia, serif'; g.textAlign = 'left'; g.fillText('NekoGaku · Happy Halloween', pad, h + pad + 46);
-    g.textAlign = 'right'; g.font = '600 24px system-ui, sans-serif'; g.fillStyle = '#c9b8d8'; g.fillText(`Day ${clock.day} · ${clockText(clock)}`, w - pad, h + pad + 46);
-    const full = c.toDataURL('image/png');
-    const small = document.createElement('canvas'); small.width = 720; small.height = Math.round(720 * c.height / c.width); small.getContext('2d')!.drawImage(c, 0, 0, small.width, small.height);
-    writeAlbum([{ id: Date.now().toString(36), at: Date.now(), day: clock.day, time: clockText(clock), data: small.toDataURL('image/jpeg', .8), note }, ...readAlbum()]);
-    if (!show) return;
-    $<HTMLImageElement>('[data-photo]').src = full; $<HTMLAnchorElement>('[data-photo-save]').href = full;
-    open('photo');
   }
 
   // Items
@@ -278,8 +218,6 @@ export function startHouse(root: HTMLElement): () => void {
     el.querySelector('[data-away]')!.addEventListener('click', () => { world.removeItem(uid); hidePop(); audio.play('pop'); save(); });
   }
 
-  // Gym
-
   // Modes
   function setModeText(text: string) { const m = $('[data-mode]'); m.hidden = !text; $('[data-mode-text]').textContent = text; }
   function setMode(next: Mode) {
@@ -293,7 +231,6 @@ export function startHouse(root: HTMLElement): () => void {
     audio.unlock();
     const act = b.dataset.act;
     if (act === 'menu') openMenu();
-    else if (act === 'photo') takePhoto();
     else if (act === 'items') { setMode('pet'); openItems(); }
     else if (act === 'grimoire') { audio.play('tap'); window.dispatchEvent(new CustomEvent('nekogaku:go', { detail: '/study' })); }
     else if (act === 'ball') { audio.play('tap'); setMode(mode === 'ball' ? 'pet' : 'ball'); }
@@ -417,8 +354,6 @@ export function startHouse(root: HTMLElement): () => void {
     if (!alive) return;
     const dt = Math.min(.05, (now - last) / 1000); last = now;
     world.step(dt);
-    const gym = world.cats.find(c => c.act.k === 'gym' || (c.act.k === 'walk' && c.act.then.k === 'gym'));
-    if (gym && !down) renderer.camX += ((Math.max(0, gym.x - renderer.vw / renderer.zoom / 2)) - renderer.camX) * Math.min(1, dt * 2), renderer.pan(0, 0);
     if (root.getClientRects().length) renderer.draw(mode === 'feather' ? feather : null);
     if ((hudAge += dt) > .25) { hudAge = 0; hud(); }
     serverAge += dt;
