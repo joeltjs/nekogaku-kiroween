@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fc from 'fast-check';
-import { SLOT_CATS, SLOT_COSTUMES, SLOT_COUNT, cleanSlots, isSlotKey, openSlot, slotCount, slotKey } from '../game/sim/album.ts';
+import { SLOT_CATS, SLOT_COSTUMES, SLOT_COUNT, SLOT_PERK_LOVE, cleanSlots, isSlotKey, openSlot, slotCount, slotKey, slotPerkLove } from '../game/sim/album.ts';
 
 const cat = fc.constantFrom(...SLOT_CATS);
 const costume = fc.constantFrom(...SLOT_COSTUMES);
@@ -60,4 +60,15 @@ test('saved slot data keeps only real, unique keys', () => {
   assert.deepEqual(cleanSlots(undefined), []);
   assert.equal(isSlotKey('cecil:witch'), true);
   assert.equal(isSlotKey('cecil:broom'), false);
+});
+
+test('the perk gives Love only for costumes whose slot is open', () => {
+  fc.assert(fc.property(fc.array(fc.tuple(cat, costume), { maxLength: 20 }), cat, costume, (uses, c, k) => {
+    let open: string[] = [];
+    for (const [uc, uk] of uses) open = openSlot(open, uc, uk).open;
+    const expected = open.includes(slotKey(c, k)) ? SLOT_PERK_LOVE : 0;
+    assert.equal(slotPerkLove(open, c, k), expected);
+  }));
+  assert.equal(slotPerkLove([], 'kuku', 'vampire'), 0);
+  assert.equal(slotPerkLove(['kuku:vampire'], 'kuku', 'vampire'), SLOT_PERK_LOVE);
 });

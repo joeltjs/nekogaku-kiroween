@@ -12,7 +12,7 @@ import { MAX_LOVE, levelProgress } from './sim/progress';
 import { allExamsPassed, examsPassed as passedList, trackName, unlockText } from './sim/unlock';
 import { clampToFloor, type Pt } from './sim/room';
 import { CAT_BLURBS, CAT_NAMES, World, type Cat } from './sim/world';
-import { SLOT_CATS, SLOT_COSTUMES, SLOT_COUNT, slotCount, slotKey } from './sim/album';
+import { SLOT_CATS, SLOT_COSTUMES, SLOT_COUNT, SLOT_PERK_LOVE, slotCount, slotKey } from './sim/album';
 import { AGE_LABELS, ageOf, idealWeight, physique } from './art/cat-look';
 
 const SAVE_KEY = 'nekogaku-house-v1';
@@ -210,7 +210,7 @@ export function startHouse(root: HTMLElement): () => void {
       const on = open.includes(slotKey(cat, k));
       return `<span class="slot${on ? ' open' : ''}">${on ? COSTUMES[k].name : 'Locked'}</span>`;
     }).join('')}</div>`).join('');
-    return `<section class="slots" aria-label="Costume album slots"><h3>Costume slots: ${slotCount(open)} of ${SLOT_COUNT} open</h3>${rows}</section>`;
+    return `<section class="slots" aria-label="Costume album slots"><h3>Costume slots: ${slotCount(open)} of ${SLOT_COUNT} open</h3>${rows}<p class="hint">An open costume gives its cat ${SLOT_PERK_LOVE} Love each time it wears that costume again.</p></section>`;
   }
   function writeAlbum(a: Photo[]) {
     let list = a.slice(0, 12);

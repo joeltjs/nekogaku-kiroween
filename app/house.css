@@ -89,6 +89,10 @@
 .house .slot-row { display: grid; grid-template-columns: 70px repeat(6, minmax(0, 1fr)); gap: 6px; align-items: center; }
 .house .slot { padding: 4px 6px; border-radius: 8px; font-size: .78rem; text-align: center; background: var(--crypt-2); border: 2px solid #211c1c; color: var(--muted); }
 .house .slot.open { color: #e9dcc0; border-color: var(--pumpkin); }
+@media (max-width: 600px) {
+  .house .slot-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .house .slot-row b { grid-column: 1 / -1; }
+}
 .house .settings { display: grid; gap: 10px; }
 .house .settings label { display: flex; gap: 10px; align-items: center; font-weight: 600; }
 .house .settings input { width: 22px; height: 22px; accent-color: var(--pumpkin); }

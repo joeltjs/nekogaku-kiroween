@@ -174,7 +174,7 @@ export class Renderer {
       else if (p.kind === 'spark') { g.fillStyle = '#ffd25e'; g.beginPath(); for (let i = 0; i < 8; i++) { const b = i / 8 * Math.PI * 2, r = i % 2 ? 4 : 11; g.lineTo(Math.cos(b) * r, Math.sin(b) * r); } g.fill(); }
       else if (p.kind === 'puff') { g.fillStyle = '#e9e4f7'; g.beginPath(); g.arc(0, 0, 10 + u * 18, 0, Math.PI * 2); g.fill(); }
       else if (p.kind === 'note') { g.fillStyle = '#ffcf5a'; g.font = '800 26px system-ui, sans-serif'; g.fillText('♪', 0, 0); }
-      else if (p.kind === 'confetti') { g.rotate(p.age * 7 + p.x); g.fillStyle = CONFETTI[Math.abs(Math.floor(p.x)) % CONFETTI.length]; g.fillRect(-4, -2, 8, 4); }
+      else if (p.kind === 'confetti') { g.rotate(p.age * 7 + p.x); g.fillStyle = CONFETTI[Math.abs(Math.floor(p.x)) % CONFETTI.length]; g.fillRect(-7, -4, 14, 8); }
       g.restore();
     }
   }

@@ -28,3 +28,7 @@ export function openSlot(open: readonly string[], cat: CatId, costume: CostumeId
 }
 
 export const slotCount = (open: readonly string[]) => open.filter(isSlotKey).length;
+
+/** Perk of an open slot: each time the cat wears that costume again, it gets this much Love. */
+export const SLOT_PERK_LOVE = .3;
+export const slotPerkLove = (open: readonly string[], cat: CatId, costume: CostumeId) => (open.includes(slotKey(cat, costume)) ? SLOT_PERK_LOVE : 0);

@@ -16,7 +16,7 @@ import { COSTUME_SECONDS, GYM_SET_EXP, GYM_SET_LOVE, PET_LOVE, PLAY_LOVE, clampE
 import { GYM_SPOT, SOFA, WALK, clampToFloor, type Pt } from './room';
 import { think } from './brain';
 import { isItemUnlocked } from './unlock';
-import { SLOT_COUNT, cleanSlots, openSlot, slotCount } from './album';
+import { SLOT_COUNT, cleanSlots, openSlot, slotCount, slotPerkLove } from './album';
 
 export const CAT_SCALE = 1.4;
 /** Seconds the costume banner stays on screen before the slot banner (main.ts: 3.4 s plus a 0.4 s fade). */
@@ -258,6 +258,8 @@ export class World {
     else if (c.flies) this.takeOff(cat);
     else { this.setClip(cat, 'stand'); cat.act = { k: 'idle', until: this.time + 1.5 }; }
     const slot = openSlot(this.albumSlots, cat.id, id);
+    const perk = slotPerkLove(this.albumSlots, cat.id, id);
+    if (perk > 0) this.addLove(cat, perk);
     if (slot.fresh) { this.albumSlots = slot.open; this.celebrateSlot(cat, id); }
   }
   /** First time this cat wears this costume: a banner now, then confetti and a hop when that banner is on screen. */
