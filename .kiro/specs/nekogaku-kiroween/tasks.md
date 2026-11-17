@@ -1,0 +1,31 @@
+# Tasks: NekoGaku, Kiroween edition
+
+- [x] 1. Project skeleton, steering, license, .gitignore that keeps `/.kiro` (R14.1)
+- [x] 2. Port the original cat rig (`game/art`), trimmed to Cecil, Kuku, Bolu (R2.1)
+- [x] 3. Pure game logic with property tests
+  - [x] 3.1 `sim/clock.ts` arcade clock (R9.1, R9.3)
+  - [x] 3.2 `sim/progress.ts` EXP, level, Love (R6)
+  - [x] 3.3 `sim/room.ts` floor geometry and clamp (R1.3, R2.3)
+- [x] 4. The house
+  - [x] 4.1 Haunted living room painter, lighting by hour (R1, R9.2)
+  - [x] 4.2 The 10 Halloween items, drawn in code, with Japanese words (R4)
+  - [x] 4.3 Costumes from items: vampire, ghost, werewolf, flying bat, flying witch (R7)
+  - [x] 4.4 World + cat brain: idle life, petting, carrying, item use, Give to (R2, R4.4)
+  - [x] 4.5 Ball and feather play (R3)
+  - [x] 4.6 Gym set with cat picker (R8)
+  - [x] 4.7 HUD and dialogs: Cats, Items, Album, Settings; Photo (R5)
+  - [x] 4.8 Synthesized SFX (meow, purr, howl, poof, flap…) and music loop (R11.2, R11.3)
+- [x] 5. Grimoire
+  - [x] 5.1 Migrations + seed from OpenJLPT and `data/ssw` (R10.1–R10.3)
+  - [x] 5.2 English SSW units: Kaigo and Food, 8 each (R10.3, R10.7)
+  - [x] 5.3 Quiz builder with option notes and explanations, property tests (R10.5, R13.1)
+  - [x] 5.4 Pages: hub, track, lesson (cards + quiz + result), Halloween theme (R10.4, R10.8)
+  - [x] 5.5 Progress API and the server reward queue to the house (R10.6)
+  - [x] 5.6 Mock exam with timer and full review (R13.2)
+- [x] 6. Accounts: access codes, sessions, server house saves (R12a)
+- [x] 7. Audio assets
+  - [x] 7.1 VOICEVOX batch build + manifest (R11.1)
+  - [x] 7.2 Synthesized Halloween soundtrack: Pumpkin Parlor Waltz, The Witching Hour (R11.2)
+- [x] 8. Credits page, README, Kiro write-up, submission text (R11.4, R14)
+- [x] 9. Kiro hooks: type-check on save, content check, tests on stop, read-only guard for the source project
+- [x] 10. Verify: tests, game:check, content:check, build, screenshots on desktop and phone

@@ -1,0 +1,167 @@
+{
+  "id": "food",
+  "title": "SSW Food",
+  "subtitle": "Food and beverage manufacturing Japanese for Specified Skilled Worker (飲食料品製造業)",
+  "units": [
+    {
+      "id": "food-01", "title": "Food hygiene basics",
+      "intro": "Food poisoning is prevented with three rules: do not bring germs in, do not let them grow, and kill them.",
+      "terms": [
+        { "jp": "食品衛生", "reading": "しょくひんえいせい", "en": "food hygiene" },
+        { "jp": "食中毒", "reading": "しょくちゅうどく", "en": "food poisoning" },
+        { "jp": "細菌", "reading": "さいきん", "en": "bacteria" },
+        { "jp": "ウイルス", "reading": "ウイルス", "en": "virus" },
+        { "jp": "付けない", "reading": "つけない", "en": "do not let (germs) get on (food)", "note": "The first of the three rules." },
+        { "jp": "増やさない", "reading": "ふやさない", "en": "do not let (germs) multiply" },
+        { "jp": "やっつける", "reading": "やっつける", "en": "to kill (germs), for example by heating" },
+        { "jp": "異物混入", "reading": "いぶつこんにゅう", "en": "foreign matter getting into food" }
+      ],
+      "questions": [
+        { "q": "Which action matches 増やさない (do not let germs multiply)?", "options": ["Keep chilled food in the refrigerator quickly", "Wash your hands before work", "Heat food until the center is hot", "Wear a hair net"], "answer": 0, "why": "Low temperatures slow the growth of bacteria." },
+        { "q": "Which action matches 付けない (do not let germs get on food)?", "options": ["Wash hands and use separate cutting boards", "Leave food at room temperature", "Cook food longer", "Store food in large piles"], "answer": 0, "why": "Clean hands and separate tools stop germs reaching the food." },
+        { "q": "A worker finds a piece of plastic in a product. What is this called?", "options": ["異物混入 (foreign matter contamination)", "食中毒 (food poisoning)", "細菌 (bacteria)", "加熱 (heating)"], "answer": 0, "why": "Any object that should not be in food is 異物." },
+        { "q": "Which is one main cause of 食中毒?", "options": ["Bacteria or viruses in food", "Using a clean apron", "Washing vegetables", "Labeling products"], "answer": 0, "why": "Bacteria, viruses, parasites and some chemicals cause food poisoning." }
+      ]
+    },
+    {
+      "id": "food-02", "title": "HACCP",
+      "intro": "HACCP finds the steps where hazards can happen and controls them at critical points, with monitoring and records. In Japan, food businesses are required to manage hygiene in line with HACCP.",
+      "terms": [
+        { "jp": "危害要因", "reading": "きがいよういん", "en": "hazard" },
+        { "jp": "重要管理点", "reading": "じゅうようかんりてん", "en": "critical control point (CCP)" },
+        { "jp": "管理基準", "reading": "かんりきじゅん", "en": "critical limit" },
+        { "jp": "モニタリング", "reading": "モニタリング", "en": "monitoring" },
+        { "jp": "改善措置", "reading": "かいぜんそち", "en": "corrective action" },
+        { "jp": "検証", "reading": "けんしょう", "en": "verification" },
+        { "jp": "記録", "reading": "きろく", "en": "record" },
+        { "jp": "工程", "reading": "こうてい", "en": "process step" }
+      ],
+      "questions": [
+        { "q": "In HACCP, what is a 重要管理点 (CCP)?", "options": ["A step where control is essential to prevent or remove a hazard", "The factory's front door", "Any step where workers take a break", "The place where products are sold"], "answer": 0, "why": "A CCP is a step where a hazard must be controlled." },
+        { "q": "The rule says the center temperature must reach 75 °C for 1 minute. What is this?", "options": ["管理基準 (a critical limit)", "危害要因 (a hazard)", "改善措置 (a corrective action)", "異物 (foreign matter)"], "answer": 0, "why": "A critical limit is the value that separates safe from unsafe." },
+        { "q": "The thermometer shows the oil was too cold, so the batch is reheated and the cause fixed. What is this?", "options": ["改善措置 (corrective action)", "検証 (verification)", "モニタリング (monitoring)", "工程 (a process step)"], "answer": 0, "why": "When monitoring shows a problem, corrective action deals with the product and the cause." },
+        { "q": "Why keep 記録 in HACCP?", "options": ["To prove that controls were done and to find problems", "Only to decorate the office", "Because records replace cleaning", "So nobody needs to monitor"], "answer": 0, "why": "Records show the plan is working and help trace problems." }
+      ]
+    },
+    {
+      "id": "food-03", "title": "Personal hygiene",
+      "intro": "People are the biggest source of contamination. Check your health, dress correctly, and wash your hands the right way.",
+      "terms": [
+        { "jp": "手洗い", "reading": "てあらい", "en": "handwashing" },
+        { "jp": "健康チェック", "reading": "けんこうチェック", "en": "health check" },
+        { "jp": "作業着", "reading": "さぎょうぎ", "en": "work clothes" },
+        { "jp": "帽子", "reading": "ぼうし", "en": "cap, hair cover" },
+        { "jp": "マスク", "reading": "マスク", "en": "face mask" },
+        { "jp": "手袋", "reading": "てぶくろ", "en": "gloves" },
+        { "jp": "粘着ローラー", "reading": "ねんちゃくローラー", "en": "lint roller (to remove hair and dust)" },
+        { "jp": "下痢", "reading": "げり", "en": "diarrhea" }
+      ],
+      "questions": [
+        { "q": "You have diarrhea in the morning. What should you do?", "options": ["Tell your supervisor before starting work", "Work as usual and say nothing", "Only wear two masks", "Work faster to go home early"], "answer": 0, "why": "Illness like diarrhea can spread food poisoning; report it first." },
+        { "q": "Why use a 粘着ローラー on work clothes before entering?", "options": ["To remove hair and dust that could fall into food", "To dry the clothes", "To make the clothes warmer", "To check the time"], "answer": 0, "why": "Hair and dust are common foreign matter." },
+        { "q": "When must you wash your hands?", "options": ["After using the toilet and before touching food", "Only at the end of the day", "Only when gloves are torn", "Never if you wear gloves"], "answer": 0, "why": "Hands carry germs from the toilet, raw food and rubbish." },
+        { "q": "Which is correct about the 帽子 (hair cover)?", "options": ["All hair must be inside it", "It can be worn loosely on the back of the head", "Short hair does not need it", "It is only for visitors"], "answer": 0, "why": "Hair must be fully covered to prevent it falling into food." }
+      ]
+    },
+    {
+      "id": "food-04", "title": "Cleaning and 5S",
+      "intro": "5S keeps the workplace safe and clean: sort, set in order, shine, standardize, sustain. Clean first, then sanitize.",
+      "terms": [
+        { "jp": "整理", "reading": "せいり", "en": "sort (remove what is not needed)" },
+        { "jp": "整頓", "reading": "せいとん", "en": "set in order (a place for everything)" },
+        { "jp": "清掃", "reading": "せいそう", "en": "shine, cleaning" },
+        { "jp": "清潔", "reading": "せいけつ", "en": "standardize, keeping clean" },
+        { "jp": "しつけ", "reading": "しつけ", "en": "sustain (keeping the rules as a habit)" },
+        { "jp": "洗浄", "reading": "せんじょう", "en": "washing, cleaning" },
+        { "jp": "殺菌", "reading": "さっきん", "en": "sterilizing, killing germs" },
+        { "jp": "消毒", "reading": "しょうどく", "en": "disinfection" }
+      ],
+      "questions": [
+        { "q": "Throwing away tools that are no longer used is which S?", "options": ["整理 (sort)", "整頓 (set in order)", "清掃 (shine)", "しつけ (sustain)"], "answer": 0, "why": "整理 means removing what is not needed." },
+        { "q": "Putting every knife back in its labeled place is which S?", "options": ["整頓 (set in order)", "整理 (sort)", "清潔 (standardize)", "殺菌 (sterilize)"], "answer": 0, "why": "整頓 gives everything a fixed place." },
+        { "q": "In what order do you treat a cutting board?", "options": ["Wash off dirt (洗浄) first, then sanitize (消毒)", "Sanitize first, then wash", "Only sanitize", "Only rinse with water"], "answer": 0, "why": "Dirt protects germs, so clean first, then disinfect." },
+        { "q": "Which S means following the rules every day until it is a habit?", "options": ["しつけ (sustain)", "清掃 (shine)", "整理 (sort)", "整頓 (set in order)"], "answer": 0, "why": "しつけ keeps the other four S going." }
+      ]
+    },
+    {
+      "id": "food-05", "title": "Allergens and labels",
+      "intro": "A small amount of an allergen can be dangerous. Keep allergens separate and make sure labels are correct.",
+      "terms": [
+        { "jp": "アレルギー", "reading": "アレルギー", "en": "allergy" },
+        { "jp": "アレルゲン", "reading": "アレルゲン", "en": "allergen" },
+        { "jp": "特定原材料", "reading": "とくていげんざいりょう", "en": "specified allergenic ingredients (labeling required)" },
+        { "jp": "表示", "reading": "ひょうじ", "en": "label, labeling" },
+        { "jp": "賞味期限", "reading": "しょうみきげん", "en": "best-before date" },
+        { "jp": "消費期限", "reading": "しょうひきげん", "en": "use-by date" },
+        { "jp": "原材料", "reading": "げんざいりょう", "en": "ingredients, raw materials" },
+        { "jp": "交差汚染", "reading": "こうさおせん", "en": "cross-contamination" }
+      ],
+      "questions": [
+        { "q": "Which date is used for foods that spoil quickly, such as sandwiches?", "options": ["消費期限 (use-by date)", "賞味期限 (best-before date)", "製造日 (production date) only", "No date"], "answer": 0, "why": "消費期限 is the date until which the food is safe to eat." },
+        { "q": "A line made a product with milk and next will make a milk-free product. What prevents 交差汚染?", "options": ["Clean the line and tools thoroughly before the change", "Start immediately to save time", "Only change the label", "Use the same gloves"], "answer": 0, "why": "Allergen residue on equipment can reach the next product." },
+        { "q": "Which of these is one of Japan's 特定原材料?", "options": ["卵 (egg)", "砂糖 (sugar)", "塩 (salt)", "水 (water)"], "answer": 0, "why": "Egg, milk, wheat, shrimp, crab, peanut, buckwheat and walnut are among the required items." },
+        { "q": "Why is a wrong 表示 (label) dangerous?", "options": ["An allergic customer may eat something unsafe", "It only changes the price", "It makes the product heavier", "Labels are not important"], "answer": 0, "why": "People rely on labels to avoid allergens." }
+      ]
+    },
+    {
+      "id": "food-06", "title": "Temperature control",
+      "intro": "Bacteria grow fast in the danger zone between about 10 °C and 60 °C. Heat well, cool quickly, and check the temperature.",
+      "terms": [
+        { "jp": "温度管理", "reading": "おんどかんり", "en": "temperature control" },
+        { "jp": "加熱", "reading": "かねつ", "en": "heating, cooking" },
+        { "jp": "中心温度", "reading": "ちゅうしんおんど", "en": "core (center) temperature" },
+        { "jp": "冷蔵", "reading": "れいぞう", "en": "refrigeration" },
+        { "jp": "冷凍", "reading": "れいとう", "en": "freezing" },
+        { "jp": "急速冷却", "reading": "きゅうそくれいきゃく", "en": "rapid cooling" },
+        { "jp": "温度計", "reading": "おんどけい", "en": "thermometer" },
+        { "jp": "解凍", "reading": "かいとう", "en": "thawing" }
+      ],
+      "questions": [
+        { "q": "Where do you measure 中心温度?", "options": ["At the thickest center part of the food", "On the surface only", "In the air of the room", "On the package"], "answer": 0, "why": "The center heats last, so it shows whether the whole food is cooked." },
+        { "q": "Cooked soup will be stored. What is the safest way to cool it?", "options": ["急速冷却: cool it quickly, for example in shallow containers", "Leave the big pot on the table overnight", "Cover it with a towel to keep it warm", "Put it in the sun"], "answer": 0, "why": "Moving quickly through the danger zone limits bacterial growth." },
+        { "q": "What is the safest way to thaw frozen meat?", "options": ["Thaw it in the refrigerator", "Leave it on the counter all day", "Put it in warm water for hours", "Thaw and refreeze it many times"], "answer": 0, "why": "Thawing in the refrigerator keeps the food out of the danger zone." },
+        { "q": "Why check the refrigerator with a 温度計 and record it?", "options": ["To make sure food stays cold enough", "To decorate the fridge", "To measure the food's weight", "It is not necessary"], "answer": 0, "why": "Monitoring and records show the temperature control works." }
+      ]
+    },
+    {
+      "id": "food-07", "title": "Workplace safety",
+      "intro": "Factories have knives, machines, wet floors and heavy loads. Follow the rules, report danger, and stop machines before touching them.",
+      "terms": [
+        { "jp": "安全", "reading": "あんぜん", "en": "safety" },
+        { "jp": "労働災害", "reading": "ろうどうさいがい", "en": "workplace accident, occupational injury" },
+        { "jp": "危険", "reading": "きけん", "en": "danger" },
+        { "jp": "非常停止ボタン", "reading": "ひじょうていしボタン", "en": "emergency stop button" },
+        { "jp": "指差し呼称", "reading": "ゆびさしこしょう", "en": "point-and-call (pointing and saying a check aloud)" },
+        { "jp": "報告・連絡・相談", "reading": "ほうこく・れんらく・そうだん", "en": "report, inform, consult (ho-ren-so)" },
+        { "jp": "滑る", "reading": "すべる", "en": "to slip" },
+        { "jp": "保護具", "reading": "ほごぐ", "en": "protective equipment" }
+      ],
+      "questions": [
+        { "q": "Food gets stuck inside a running machine. What do you do first?", "options": ["Stop the machine (and lock it out) before reaching in", "Reach in quickly while it runs", "Hit the machine to free it", "Ignore it"], "answer": 0, "why": "Never put hands into a moving machine." },
+        { "q": "What is 指差し呼称?", "options": ["Pointing at a thing and saying the check out loud", "Calling a friend on the phone", "Pointing at other workers' mistakes", "A kind of label"], "answer": 0, "why": "Pointing and calling reduces mistakes by focusing attention." },
+        { "q": "The floor is wet and someone might 滑る. What should you do?", "options": ["Clean it up or report it right away", "Walk around it and say nothing", "Run across it", "Wait for the next shift"], "answer": 0, "why": "Wet floors cause many falls; act and report quickly." },
+        { "q": "You are not sure how to use a new machine. What fits 報・連・相?", "options": ["Ask (consult) your supervisor before using it", "Try it alone to learn faster", "Watch a video later", "Do nothing and wait"], "answer": 0, "why": "Consulting before acting prevents accidents." }
+      ]
+    },
+    {
+      "id": "food-08", "title": "Production and quality",
+      "intro": "Good products come from following the procedure, checking quality, and being able to trace every lot.",
+      "terms": [
+        { "jp": "製造", "reading": "せいぞう", "en": "manufacturing, production" },
+        { "jp": "品質管理", "reading": "ひんしつかんり", "en": "quality control" },
+        { "jp": "検品", "reading": "けんぴん", "en": "product inspection" },
+        { "jp": "不良品", "reading": "ふりょうひん", "en": "defective product" },
+        { "jp": "ロット", "reading": "ロット", "en": "lot, batch" },
+        { "jp": "トレーサビリティ", "reading": "トレーサビリティ", "en": "traceability" },
+        { "jp": "包装", "reading": "ほうそう", "en": "packaging" },
+        { "jp": "金属探知機", "reading": "きんぞくたんちき", "en": "metal detector" }
+      ],
+      "questions": [
+        { "q": "Why record the ロット number of ingredients?", "options": ["So products can be traced and recalled if there is a problem", "To make the box look nice", "It is only for the tax office", "To count workers"], "answer": 0, "why": "Lot records make traceability possible." },
+        { "q": "During 検品 you find a dented, leaking package. What is it?", "options": ["不良品 (a defective product): separate it and report", "A good product: ship it", "A sample: eat it", "A new lot"], "answer": 0, "why": "Defects must be removed from the line and reported." },
+        { "q": "What does a 金属探知機 check for?", "options": ["Metal pieces in the product", "The product's taste", "The color of the package", "The room temperature"], "answer": 0, "why": "Metal detectors find metal foreign matter." },
+        { "q": "Which helps 品質管理 the most?", "options": ["Following the standard procedure every time", "Changing the recipe when you feel like it", "Skipping checks when busy", "Guessing the weight"], "answer": 0, "why": "Standard procedures make quality consistent." }
+      ]
+    }
+  ]
+}

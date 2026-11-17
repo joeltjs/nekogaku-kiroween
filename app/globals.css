@@ -1,0 +1,24 @@
+:root {
+  --night: #0f0a14;
+  --crypt: #1d1424;
+  --crypt-2: #2a1d33;
+  --edge: #4a3558;
+  --parchment: #e9dcc0;
+  --muted: #c9b8d8;
+  --pumpkin: #ff8a3d;
+  --pumpkin-dark: #c95f1c;
+  --ghost: #9dffb0;
+  --blood: #e0475f;
+  --candle: #ffcf5a;
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --jp: 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; background: var(--night); color: var(--parchment); font-family: var(--sans); -webkit-tap-highlight-color: transparent; }
+a { color: var(--candle); }
+:focus-visible { outline: 3px solid var(--ghost); outline-offset: 2px; }
+[lang='ja'] { font-family: var(--jp); }
+button { font: inherit; color: inherit; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }

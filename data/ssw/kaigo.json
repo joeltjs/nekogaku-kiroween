@@ -1,0 +1,167 @@
+{
+  "id": "kaigo",
+  "title": "SSW Kaigo",
+  "subtitle": "Nursing care Japanese for Specified Skilled Worker (介護)",
+  "units": [
+    {
+      "id": "kaigo-01", "title": "Dignity and independence",
+      "intro": "Care in Japan starts from the person, not the task. Respect the user's choices, support what they can still do themselves, and protect their privacy.",
+      "terms": [
+        { "jp": "尊厳", "reading": "そんげん", "en": "dignity", "note": "Every care action should protect the person's dignity." },
+        { "jp": "自立支援", "reading": "じりつしえん", "en": "support for independence", "note": "Help only where needed so the person keeps using their own abilities." },
+        { "jp": "自己決定", "reading": "じこけってい", "en": "self-determination", "note": "The user decides; the carer explains and offers choices." },
+        { "jp": "利用者", "reading": "りようしゃ", "en": "service user (the person receiving care)" },
+        { "jp": "個別ケア", "reading": "こべつケア", "en": "individualized care", "note": "Care planned around one person's life, habits and wishes." },
+        { "jp": "プライバシー", "reading": "プライバシー", "en": "privacy" },
+        { "jp": "虐待", "reading": "ぎゃくたい", "en": "abuse" },
+        { "jp": "身体拘束", "reading": "しんたいこうそく", "en": "physical restraint", "note": "In principle not allowed; only in strict emergencies with team decisions and records." }
+      ],
+      "questions": [
+        { "q": "A user can button her own shirt, but slowly. What fits 自立支援 (support for independence)?", "options": ["Wait and let her do it, helping only with the hard buttons", "Button it for her to save time", "Tell her to wear clothes without buttons from now on", "Ask another user to help her"], "answer": 0, "why": "Supporting independence means letting the person use the abilities they still have." },
+        { "q": "A user says he does not want to bathe today. What respects 自己決定?", "options": ["Listen to his reason and offer another time or a body wipe", "Take him to the bath anyway because it is the schedule", "Ignore it and say nothing", "Report him as uncooperative"], "answer": 0, "why": "Respect the choice, find out why, and offer alternatives." },
+        { "q": "Which is an example of 身体拘束 (physical restraint)?", "options": ["Tying a user to a wheelchair so they cannot stand up", "Helping a user walk with a cane", "Explaining the day's schedule", "Opening the curtains in the morning"], "answer": 0, "why": "Restricting someone's movement with ties, rails or locks is restraint." },
+        { "q": "You are helping a user change clothes in a shared room. What protects プライバシー?", "options": ["Close the curtain and cover the body with a towel", "Keep the door open so staff can see", "Change clothes quickly in the hallway", "Ask other users to look away"], "answer": 0, "why": "Curtains and towels protect privacy and dignity." }
+      ]
+    },
+    {
+      "id": "kaigo-02", "title": "Communication",
+      "intro": "Good care needs good talk: listen fully, speak before you touch, and use polite, clear Japanese.",
+      "terms": [
+        { "jp": "傾聴", "reading": "けいちょう", "en": "active listening" },
+        { "jp": "共感", "reading": "きょうかん", "en": "empathy" },
+        { "jp": "声かけ", "reading": "こえかけ", "en": "speaking to the person (before and during care)", "note": "Tell the person what you will do before you do it." },
+        { "jp": "受容", "reading": "じゅよう", "en": "acceptance (of the person's feelings)" },
+        { "jp": "非言語コミュニケーション", "reading": "ひげんごコミュニケーション", "en": "nonverbal communication", "note": "Face, eye level, tone, gestures, touch." },
+        { "jp": "敬語", "reading": "けいご", "en": "polite (honorific) language" },
+        { "jp": "相づち", "reading": "あいづち", "en": "small listening responses (like はい, そうですね)" },
+        { "jp": "筆談", "reading": "ひつだん", "en": "talking in writing", "note": "Useful for users with hearing loss." }
+      ],
+      "questions": [
+        { "q": "Before helping a user stand up, what should you do first?", "options": ["Say what you are going to do (声かけ) and wait for a response", "Lift the user quickly before they get nervous", "Stand behind the user without speaking", "Ask a colleague to explain later"], "answer": 0, "why": "声かけ lets the user prepare and agree." },
+        { "q": "A user with dementia repeats the same story. Which response shows 傾聴?", "options": ["Listen, nod and respond as if hearing it for the first time", "Say “You told me that already.”", "Change the subject immediately", "Leave the room"], "answer": 0, "why": "Active listening accepts the person's feelings even when the story repeats." },
+        { "q": "A user hears very little. Which method can help?", "options": ["筆談 (writing on paper or a board)", "Speaking faster", "Talking from behind the user", "Using only English"], "answer": 0, "why": "Writing, facing the person and speaking slowly all help." },
+        { "q": "Which is good 非言語コミュニケーション when talking to a user in a wheelchair?", "options": ["Crouch to the user's eye level and smile", "Stand tall and look down at the user", "Cross your arms", "Look at your phone while talking"], "answer": 0, "why": "Eye level and a calm face make the user feel respected." }
+      ]
+    },
+    {
+      "id": "kaigo-03", "title": "Body and mind",
+      "intro": "Ageing, illness and dementia change what each person needs. Know the common conditions so you can notice changes early.",
+      "terms": [
+        { "jp": "認知症", "reading": "にんちしょう", "en": "dementia" },
+        { "jp": "麻痺", "reading": "まひ", "en": "paralysis" },
+        { "jp": "患側", "reading": "かんそく", "en": "affected side (the weak or paralysed side)" },
+        { "jp": "健側", "reading": "けんそく", "en": "unaffected side (the healthy side)" },
+        { "jp": "脱水", "reading": "だっすい", "en": "dehydration" },
+        { "jp": "褥瘡", "reading": "じょくそう", "en": "pressure ulcer (bedsore)" },
+        { "jp": "誤嚥", "reading": "ごえん", "en": "aspiration (food or drink going into the airway)" },
+        { "jp": "高齢者", "reading": "こうれいしゃ", "en": "older person" }
+      ],
+      "questions": [
+        { "q": "A user who stays in bed all day gets a red spot on the hip that does not fade. What may be starting?", "options": ["褥瘡 (a pressure ulcer)", "脱水 (dehydration)", "認知症 (dementia)", "麻痺 (paralysis)"], "answer": 0, "why": "Pressure on one spot for a long time causes pressure ulcers; change position regularly." },
+        { "q": "Older people often feel less thirsty. Which risk does this raise?", "options": ["脱水 (dehydration)", "褥瘡 (pressure ulcer)", "骨折 (fracture) only", "No risk"], "answer": 0, "why": "Offer drinks often, even when the user says they are not thirsty." },
+        { "q": "A user has paralysis on the right side. Which side is the 健側?", "options": ["The left side", "The right side", "Both sides", "Neither side"], "answer": 0, "why": "健側 is the unaffected side; here, the left." },
+        { "q": "A user coughs and chokes while drinking tea. What could have happened?", "options": ["誤嚥: some tea went into the airway", "脱水: the user is too hydrated", "麻痺 suddenly disappeared", "Nothing; coughing is always normal"], "answer": 0, "why": "Coughing while drinking can be a sign of aspiration; watch the posture and report it." }
+      ]
+    },
+    {
+      "id": "kaigo-04", "title": "Moving and transfers",
+      "intro": "Transfers are where falls happen. Use good body mechanics, check the brakes, and work with the user's own strength.",
+      "terms": [
+        { "jp": "移乗", "reading": "いじょう", "en": "transfer (for example bed to wheelchair)" },
+        { "jp": "体位変換", "reading": "たいいへんかん", "en": "changing position (repositioning)" },
+        { "jp": "車いす", "reading": "くるまいす", "en": "wheelchair" },
+        { "jp": "歩行介助", "reading": "ほこうかいじょ", "en": "walking assistance" },
+        { "jp": "杖", "reading": "つえ", "en": "cane, walking stick" },
+        { "jp": "端座位", "reading": "たんざい", "en": "sitting on the edge of the bed" },
+        { "jp": "仰臥位", "reading": "ぎょうがい", "en": "lying on the back (supine)" },
+        { "jp": "ブレーキ", "reading": "ブレーキ", "en": "brake (of a wheelchair)" }
+      ],
+      "questions": [
+        { "q": "Before a 移乗 from bed to wheelchair, what must you check?", "options": ["The wheelchair's brakes are on", "The wheelchair is as far from the bed as possible", "The footrests are down so the user can stand on them", "The user is still lying down"], "answer": 0, "why": "Brakes on and footrests up prevent the chair from moving and the user from tripping." },
+        { "q": "When helping a user who walks with a cane in the right hand, where do you usually stand?", "options": ["Slightly behind on the user's weak (affected) side", "In front, walking backwards", "On the cane side, holding the cane", "Far away so the user feels independent"], "answer": 0, "why": "You support the side where the user is more likely to fall." },
+        { "q": "What does 体位変換 help prevent?", "options": ["褥瘡 (pressure ulcers)", "Hearing loss", "Dementia", "Tooth decay"], "answer": 0, "why": "Changing position relieves pressure on the skin." },
+        { "q": "Which is good body mechanics for the carer?", "options": ["Keep the user close, bend your knees, and use your legs", "Keep your legs straight and bend your back", "Lift with your arms stretched out far", "Twist your back while lifting"], "answer": 0, "why": "A wide base, bent knees and staying close protect your back." }
+      ]
+    },
+    {
+      "id": "kaigo-05", "title": "Eating and oral care",
+      "intro": "Safe eating depends on posture, pace and texture. Clean mouths help prevent pneumonia.",
+      "terms": [
+        { "jp": "食事介助", "reading": "しょくじかいじょ", "en": "help with eating" },
+        { "jp": "嚥下", "reading": "えんげ", "en": "swallowing" },
+        { "jp": "とろみ", "reading": "とろみ", "en": "thickness (thickener added to drinks)" },
+        { "jp": "口腔ケア", "reading": "こうくうケア", "en": "oral care" },
+        { "jp": "義歯", "reading": "ぎし", "en": "dentures" },
+        { "jp": "姿勢", "reading": "しせい", "en": "posture" },
+        { "jp": "むせる", "reading": "むせる", "en": "to choke and cough (on food or drink)" },
+        { "jp": "水分補給", "reading": "すいぶんほきゅう", "en": "giving fluids, hydration" }
+      ],
+      "questions": [
+        { "q": "Which posture is safer for eating?", "options": ["Sitting up with the chin slightly down", "Lying flat on the back", "Head tilted far back", "Lying on the stomach"], "answer": 0, "why": "Sitting upright with the chin a little down makes swallowing safer." },
+        { "q": "Why add とろみ to tea for some users?", "options": ["Thick drinks move slower and are less likely to go into the airway", "To make the tea sweeter", "To keep the tea hot", "Because users dislike water"], "answer": 0, "why": "Thickened drinks lower the risk of aspiration for users with swallowing problems." },
+        { "q": "Why is 口腔ケア important for older people?", "options": ["It helps prevent aspiration pneumonia", "It makes them sleep longer", "It replaces meals", "It is only for appearance"], "answer": 0, "why": "Bacteria in the mouth can cause pneumonia if aspirated." },
+        { "q": "During 食事介助, how should you give food?", "options": ["Small spoonfuls, checking the user has swallowed before the next", "Large spoonfuls to finish quickly", "From above the user's head", "While the user is talking"], "answer": 0, "why": "Small amounts at the user's pace are safest." }
+      ]
+    },
+    {
+      "id": "kaigo-06", "title": "Bathing and dressing",
+      "intro": "Bathing relaxes and cleans, but carries risks: temperature shock, falls and fatigue. Dressing follows a simple rule for a weak side.",
+      "terms": [
+        { "jp": "入浴介助", "reading": "にゅうよくかいじょ", "en": "help with bathing" },
+        { "jp": "清拭", "reading": "せいしき", "en": "bed bath (wiping the body)" },
+        { "jp": "更衣", "reading": "こうい", "en": "changing clothes" },
+        { "jp": "着脱", "reading": "ちゃくだつ", "en": "putting on and taking off (clothes)" },
+        { "jp": "脱健着患", "reading": "だっけんちゃっかん", "en": "undress the healthy side first, dress the affected side first" },
+        { "jp": "湯温", "reading": "ゆおん", "en": "water temperature" },
+        { "jp": "陰部洗浄", "reading": "いんぶせんじょう", "en": "washing the genital area" },
+        { "jp": "ヒートショック", "reading": "ヒートショック", "en": "heat shock (sudden temperature change stress)" }
+      ],
+      "questions": [
+        { "q": "A user's left arm is paralysed. Following 脱健着患, which sleeve do you put on first?", "options": ["The left (affected) sleeve", "The right (healthy) sleeve", "Either; it does not matter", "Both at the same time"], "answer": 0, "why": "Dress the affected side first; undress the healthy side first." },
+        { "q": "Before the user gets into the bath, what should you check?", "options": ["The water temperature with your own hand or a thermometer", "Only the colour of the water", "Nothing; the machine sets it", "The user's shoe size"], "answer": 0, "why": "Always check 湯温 to prevent burns." },
+        { "q": "How can you reduce the risk of ヒートショック in winter?", "options": ["Warm the changing room and bathroom beforehand", "Use very hot water", "Open the window during bathing", "Bathe right after a big meal"], "answer": 0, "why": "Small temperature differences between rooms lower the strain on the body." },
+        { "q": "A user feels unwell and cannot bathe today. What can you offer instead?", "options": ["清拭 (wiping the body with warm towels)", "A cold shower", "Skip all cleaning for a week", "Only perfume"], "answer": 0, "why": "A bed bath keeps the skin clean without the strain of bathing." }
+      ]
+    },
+    {
+      "id": "kaigo-07", "title": "Toileting",
+      "intro": "Toileting is private and emotional. Protect the user's feelings, keep their routine, and watch for changes.",
+      "terms": [
+        { "jp": "排泄", "reading": "はいせつ", "en": "excretion (urine and stool)" },
+        { "jp": "排泄介助", "reading": "はいせつかいじょ", "en": "help with toileting" },
+        { "jp": "おむつ", "reading": "おむつ", "en": "diaper, incontinence pad" },
+        { "jp": "ポータブルトイレ", "reading": "ポータブルトイレ", "en": "portable (bedside) toilet" },
+        { "jp": "尿意", "reading": "にょうい", "en": "the urge to urinate" },
+        { "jp": "便秘", "reading": "べんぴ", "en": "constipation" },
+        { "jp": "失禁", "reading": "しっきん", "en": "incontinence" },
+        { "jp": "羞恥心", "reading": "しゅうちしん", "en": "sense of shame, embarrassment" }
+      ],
+      "questions": [
+        { "q": "A user still feels 尿意 and can sit. What is better than using おむつ all the time?", "options": ["Help the user use the toilet or a portable toilet", "Never offer the toilet", "Limit their drinks so they urinate less", "Change the diaper only once a day"], "answer": 0, "why": "Using the toilet keeps independence and dignity." },
+        { "q": "How do you respect 羞恥心 during 排泄介助?", "options": ["Close the door or curtain and wait outside if it is safe", "Watch the whole time and comment", "Talk loudly about it with other staff", "Leave the door open"], "answer": 0, "why": "Privacy reduces embarrassment." },
+        { "q": "A user has had no bowel movement for several days. What might this be, and what do you do?", "options": ["便秘; record it and report to the nurse or leader", "失禁; ignore it", "Normal; never report it", "Give medicine yourself without asking"], "answer": 0, "why": "Record and report changes; carers do not decide medication alone." },
+        { "q": "A user had an accident (失禁) and looks upset. What do you say?", "options": ["Calmly say you will help them change and keep it private", "Scold them so it does not happen again", "Laugh to lighten the mood", "Tell everyone in the dining room"], "answer": 0, "why": "Stay calm and protect the user's feelings." }
+      ]
+    },
+    {
+      "id": "kaigo-08", "title": "Safety, infection and records",
+      "intro": "Prevent infections with standard precautions, report near misses, and write facts so the next shift knows what happened.",
+      "terms": [
+        { "jp": "感染症", "reading": "かんせんしょう", "en": "infectious disease" },
+        { "jp": "手洗い", "reading": "てあらい", "en": "handwashing" },
+        { "jp": "標準予防策", "reading": "ひょうじゅんよぼうさく", "en": "standard precautions" },
+        { "jp": "転倒", "reading": "てんとう", "en": "a fall (falling over)" },
+        { "jp": "ヒヤリハット", "reading": "ヒヤリハット", "en": "near miss (an incident that almost caused harm)" },
+        { "jp": "事故報告", "reading": "じこほうこく", "en": "accident report" },
+        { "jp": "記録", "reading": "きろく", "en": "record, written notes" },
+        { "jp": "申し送り", "reading": "もうしおくり", "en": "handover to the next shift" }
+      ],
+      "questions": [
+        { "q": "Under 標準予防策, when should you wear gloves?", "options": ["When you may touch blood, body fluids, or excretions", "Only when the user asks", "Never; gloves are rude", "Only on weekends"], "answer": 0, "why": "Standard precautions treat all body fluids as possibly infectious." },
+        { "q": "A user almost slipped in the hallway but you caught them. What should you do?", "options": ["Report it as a ヒヤリハット so the team can prevent it next time", "Say nothing because nobody was hurt", "Blame the user", "Only tell your friends"], "answer": 0, "why": "Near-miss reports help prevent real accidents." },
+        { "q": "Which is a good 記録?", "options": ["“14:20 Coughed while drinking tea; stopped and sat upright; no fever.”", "“Seemed fine, I think.”", "“The user was difficult today.”", "“Same as usual.”"], "answer": 0, "why": "Records should be factual, timed and specific." },
+        { "q": "When is 手洗い needed?", "options": ["Before and after care for each user", "Only at the start of the shift", "Only when hands look dirty", "Only after lunch"], "answer": 0, "why": "Washing before and after each care stops infections spreading between users." }
+      ]
+    }
+  ]
+}

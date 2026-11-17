@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Keep the earlier project read-only",
+      "trigger": "PreToolUse",
+      "description": "Blocks any tool call that would modify the earlier project in the sibling folder; reading and copying out of it stays allowed.",
+      "action": {
+        "type": "command",
+        "command": "node .kiro/hooks/scripts/guard-source.mjs",
+        "timeout": 10
+      }
+    }
+  ]
+}

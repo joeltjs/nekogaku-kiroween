@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Run property tests when the agent stops",
+      "trigger": "Stop",
+      "description": "Runs the fast-check property tests (clock, EXP/Love, floor clamp, quiz invariants, access codes) at the end of every agent turn.",
+      "action": {
+        "type": "command",
+        "command": "npm test --silent 2>&1 | tail -12",
+        "timeout": 180
+      }
+    }
+  ]
+}

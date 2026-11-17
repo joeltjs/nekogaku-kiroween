@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Type-check the game on save",
+      "trigger": "PostFileSave",
+      "description": "Runs the TypeScript compiler over game/ whenever a game file is saved, so rig and simulation errors show up at once.",
+      "matcher": "game/.*\\.ts$",
+      "action": {
+        "type": "command",
+        "command": "npx tsc -p game --pretty false 2>&1 | head -20",
+        "timeout": 90
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+ "overlap": 2.5,
+ "tracks": {
+  "parlor": {
+   "file": "parlor.mp3",
+   "loop": 72,
+   "title": "Pumpkin Parlor Waltz"
+  },
+  "witching": {
+   "file": "witching.mp3",
+   "loop": 76.36362811791383,
+   "title": "The Witching Hour"
+  }
+ }
+}

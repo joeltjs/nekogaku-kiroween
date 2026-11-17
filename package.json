@@ -1,0 +1,39 @@
+{
+  "name": "nekogaku-kiroween",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NekoGaku: Kiroween edition. A haunted cat house stitched to an offline JLPT N5-N1 and SSW curriculum with VOICEVOX Japanese audio.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "db:migrate": "node scripts/migrate.mjs",
+    "db:seed": "node scripts/seed.mjs",
+    "setup": "npm run db:migrate && npm run db:seed",
+    "game:check": "tsc -p game",
+    "content:check": "node scripts/check-content.mjs",
+    "test": "node --import tsx --test tests/*.test.ts tests/*.test.mjs",
+    "voice:build": "node scripts/build-voice.mjs",
+    "music:build": "node --import tsx scripts/make-music.ts",
+    "codes": "node scripts/codes.mjs",
+    "reset:progress": "node scripts/reset-progress.mjs"
+  },
+  "dependencies": {
+    "@libsql/client": "0.18.0",
+    "next": "15.5.26",
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "fast-check": "^3.23.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

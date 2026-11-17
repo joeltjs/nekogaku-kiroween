@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Check curriculum content on data changes",
+      "trigger": "PostFileSave",
+      "description": "Validates every unit and SSW question (4 distinct options, one answer, an explanation) and scans learner-facing files for leftover Indonesian or third-party asset references.",
+      "matcher": "(data/.*\\.json$|lib/content-build\\.js$|lib/quiz\\.js$)",
+      "action": {
+        "type": "command",
+        "command": "node scripts/check-content.mjs",
+        "timeout": 60
+      }
+    }
+  ]
+}
