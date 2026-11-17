@@ -13,6 +13,9 @@ import { WINDOW, drawLighting, drawRoomLive, drawSky, paintRoom, type RoomArt } 
 import { ROOM_H, ROOM_W, type Pt } from './sim/room';
 import { CAT_SCALE, type Cat, type Placed, type World } from './sim/world';
 
+/** Confetti colours: pumpkin, candle, ghost-lilac, bat-green, blood-red. */
+const CONFETTI = ['#ff8a3d', '#ffd25e', '#c9b8ff', '#9dffb0', '#e0455c'];
+
 export class Renderer {
   readonly ctx: CanvasRenderingContext2D;
   vw = 0; vh = 0; dpr = 1; zoom = 1;
@@ -171,6 +174,7 @@ export class Renderer {
       else if (p.kind === 'spark') { g.fillStyle = '#ffd25e'; g.beginPath(); for (let i = 0; i < 8; i++) { const b = i / 8 * Math.PI * 2, r = i % 2 ? 4 : 11; g.lineTo(Math.cos(b) * r, Math.sin(b) * r); } g.fill(); }
       else if (p.kind === 'puff') { g.fillStyle = '#e9e4f7'; g.beginPath(); g.arc(0, 0, 10 + u * 18, 0, Math.PI * 2); g.fill(); }
       else if (p.kind === 'note') { g.fillStyle = '#ffcf5a'; g.font = '800 26px system-ui, sans-serif'; g.fillText('♪', 0, 0); }
+      else if (p.kind === 'confetti') { g.rotate(p.age * 7 + p.x); g.fillStyle = CONFETTI[Math.abs(Math.floor(p.x)) % CONFETTI.length]; g.fillRect(-4, -2, 8, 4); }
       g.restore();
     }
   }

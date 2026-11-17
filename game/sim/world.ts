@@ -16,8 +16,11 @@ import { COSTUME_SECONDS, GYM_SET_EXP, GYM_SET_LOVE, PET_LOVE, PLAY_LOVE, clampE
 import { GYM_SPOT, SOFA, WALK, clampToFloor, type Pt } from './room';
 import { think } from './brain';
 import { isItemUnlocked } from './unlock';
+import { SLOT_COUNT, cleanSlots, openSlot, slotCount } from './album';
 
 export const CAT_SCALE = 1.4;
+/** Seconds the costume banner stays on screen before the slot banner (main.ts: 3.4 s plus a 0.4 s fade). */
+const SLOT_BANNER_DELAY = 3.8;
 export const CAT_NAMES: Record<CatId, string> = { cecil: 'Cecil', kuku: 'Kuku', bolu: 'Bolu' };
 export const CAT_BLURBS: Record<CatId, string> = {
   cecil: 'The first cat of the house. White coat, grey-brown cap, a sour face that hides a soft heart.',
@@ -60,7 +63,7 @@ export interface Cat {
 }
 export interface Placed { uid: string; id: ItemId; x: number; y: number; /** Carried by this cat while it wears it. */ worn?: CatId }
 export interface Ball { x: number; y: number; z: number; vx: number; vy: number; vz: number; rest: number }
-export type ParticleKind = 'heart' | 'zzz' | 'spark' | 'note' | 'puff' | 'exp';
+export type ParticleKind = 'heart' | 'zzz' | 'spark' | 'note' | 'puff' | 'exp' | 'confetti';
 export interface Particle { kind: ParticleKind; x: number; y: number; vx: number; vy: number; life: number; age: number; text?: string }
 
 export interface WorldEvents {
@@ -82,6 +85,16 @@ export class World {
   time = 0;
   /** Play time in ms over the house's whole life (drives the arcade clock). */
   playMs = 0;
+  /** Album slots opened so far, as `cat:costume` keys (see album.ts). */
+  albumSlots: string[] = [];
+  /** Moments scheduled for a later game time (the slot celebration waits for its banner). */
+  private later: { at: number; run: () => void }[] = [];
+  private runLater() {
+    if (!this.later.length) return;
+    const due = this.later.filter(l => l.at <= this.time);
+    this.later = this.later.filter(l => l.at > this.time);
+    for (const l of due) l.run();
+  }
   /** Today's EXP from play, capped (R3.3). */
   playExp = { day: 1, exp: 0 };
   /** Tracks whose mock exam was passed with PASS_PERCENT or more (from the server). */
@@ -129,7 +142,10 @@ export class World {
   }
   mark(cat: Cat, kind: EmoteKind, dur = 1.4) { cat.emote = { kind, age: 0, dur }; }
   emit(kind: ParticleKind, x: number, y: number, count = 1, text?: string) {
-    for (let i = 0; i < count; i++) this.particles.push({ kind, x: x + (this.rand() - .5) * 30, y, vx: (this.rand() - .5) * 30, vy: -(30 + this.rand() * 30), life: kind === 'zzz' ? 2.4 : kind === 'exp' ? 1.8 : 1.4, age: 0, text });
+    for (let i = 0; i < count; i++) {
+      const confetti = kind === 'confetti';
+      this.particles.push({ kind, x: x + (this.rand() - .5) * (confetti ? 60 : 30), y, vx: (this.rand() - .5) * (confetti ? 200 : 30), vy: -(confetti ? 60 : 30) - this.rand() * (confetti ? 120 : 30), life: kind === 'zzz' ? 2.4 : kind === 'exp' ? 1.8 : confetti ? 2.6 : 1.4, age: 0, text });
+    }
   }
   isAsleep(cat: Cat) { return SLEEP_CLIPS.has(cat.clip) || cat.clip === 'sleep'; }
   isBusy(cat: Cat) { return cat.act.k === 'held' || cat.act.k === 'fall' || cat.act.k === 'gym' || cat.act.k === 'hop' || cat.act.k === 'fly'; }
@@ -241,6 +257,21 @@ export class World {
     if (id === 'werewolf') { this.setClip(cat, 'lookUp', .2); this.events.sound('howl', cat.id); this.mark(cat, 'exclaim', 1.4); cat.act = { k: 'idle', until: this.time + 2.5 }; }
     else if (c.flies) this.takeOff(cat);
     else { this.setClip(cat, 'stand'); cat.act = { k: 'idle', until: this.time + 1.5 }; }
+    const slot = openSlot(this.albumSlots, cat.id, id);
+    if (slot.fresh) { this.albumSlots = slot.open; this.celebrateSlot(cat, id); }
+  }
+  /** First time this cat wears this costume: a banner now, then confetti and a hop when that banner is on screen. */
+  private celebrateSlot(cat: Cat, id: CostumeId) {
+    this.events.banner('New album slot open', `${CAT_NAMES[cat.id]} as a ${COSTUMES[id].name.toLowerCase()}. ${slotCount(this.albumSlots)} of ${SLOT_COUNT} slots are open.`);
+    this.later.push({ at: this.time + SLOT_BANNER_DELAY, run: () => this.slotMoment(cat, id) });
+  }
+  private slotMoment(cat: Cat, id: CostumeId) {
+    const s = this.shapes(cat);
+    this.emit('confetti', s.head.x, s.head.y - s.head.r, 60);
+    this.mark(cat, 'spark', 1.6);
+    this.events.sound('sparkle', cat.id);
+    const calm = cat.act.k === 'idle' || cat.act.k === 'walk';
+    if (!COSTUMES[id].flies && calm) cat.act = { k: 'hop', z0: 0, z1: 0, y0: cat.y, y1: cat.y, t: 0, dur: .6, then: { k: 'idle', until: this.time + 1.5 } };
   }
   takeOff(cat: Cat) {
     cat.act = { k: 'fly', to: { x: WALK.x0 + 150 + this.rand() * (WALK.x1 - WALK.x0 - 300), y: WALK.y0 + this.rand() * (WALK.y1 - WALK.y0) * .7 }, legs: 3 + Math.floor(this.rand() * 3), t: 0 };
@@ -277,12 +308,16 @@ export class World {
 
   step(dt: number) {
     this.time += dt; this.playMs += dt * 1000;
+    this.runLater();
     this.stepBall(dt);
     for (const cat of this.cats) {
       if (cat.costume && this.time > cat.costumeUntil && (cat.act.k === 'idle' || cat.act.k === 'walk')) this.undress(cat);
       this.stepCat(cat, dt); this.animate(cat, dt);
     }
-    for (const p of this.particles) { p.age += dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vy *= .98; }
+    for (const p of this.particles) {
+      p.age += dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vy *= .98;
+      if (p.kind === 'confetti') p.vy += 150 * dt;
+    }
     this.particles = this.particles.filter(p => p.age < p.life);
   }
 
@@ -477,7 +512,7 @@ export class World {
 
   /** A fresh house: starting levels, no items. */
   reset() {
-    this.items = []; this.ball = null; this.feather = null; this.particles = []; this.playMs = 0; this.playExp = { day: 1, exp: 0 };
+    this.items = []; this.ball = null; this.feather = null; this.particles = []; this.later = []; this.playMs = 0; this.playExp = { day: 1, exp: 0 };
     this.cats = CAT_IDS.map((id, i) => this.newCat(id, 520 + i * 460, WALK.y0 + 160 + (i % 2) * 120));
   }
 
@@ -485,7 +520,7 @@ export class World {
 
   snapshot() {
     return {
-      v: 1, playMs: Math.round(this.playMs), playExp: this.playExp,
+      v: 1, playMs: Math.round(this.playMs), playExp: this.playExp, albumSlots: this.albumSlots,
       cats: this.cats.map(c => ({ id: c.id, exp: c.exp, love: +c.love.toFixed(2), x: Math.round(c.x), y: Math.round(c.y) })),
       items: this.items.map(i => { const c = i.worn ? this.getCat(i.worn) : undefined, p = c ? clampToFloor({ x: c.x - 100, y: c.y }) : i; return { uid: i.uid, id: i.id, x: Math.round(p.x), y: Math.round(p.y) }; }),
     };
@@ -495,6 +530,7 @@ export class World {
     const d = raw as Record<string, unknown>;
     if (d.v !== 1) return false;
     if (typeof d.playMs === 'number' && Number.isFinite(d.playMs)) this.playMs = Math.max(0, d.playMs);
+    this.albumSlots = cleanSlots(d.albumSlots);
     const pe = d.playExp as { day?: unknown; exp?: unknown } | undefined;
     if (pe && typeof pe.day === 'number' && typeof pe.exp === 'number') this.playExp = { day: pe.day, exp: clamp(pe.exp, 0, 30) };
     if (Array.isArray(d.cats)) for (const s of d.cats as Record<string, unknown>[]) {

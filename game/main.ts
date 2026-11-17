@@ -11,7 +11,8 @@ import { PHASE_LABELS, clockText } from './sim/clock';
 import { MAX_LOVE, levelProgress } from './sim/progress';
 import { allExamsPassed, examsPassed as passedList, trackName, unlockText } from './sim/unlock';
 import { clampToFloor, type Pt } from './sim/room';
-import { CAT_BLURBS, World, type Cat } from './sim/world';
+import { CAT_BLURBS, CAT_NAMES, World, type Cat } from './sim/world';
+import { SLOT_CATS, SLOT_COSTUMES, SLOT_COUNT, slotCount, slotKey } from './sim/album';
 import { AGE_LABELS, ageOf, idealWeight, physique } from './art/cat-look';
 
 const SAVE_KEY = 'nekogaku-house-v1';
@@ -184,8 +185,8 @@ export function startHouse(root: HTMLElement): () => void {
       });
     } else if (tab === 'album') {
       const album = readAlbum();
-      body.innerHTML = album.length ? `<div class="album">${album.map(p => `<figure><img src="${p.data}" alt="Photo from day ${p.day}"><figcaption>${p.note ? `${esc(p.note)} · ` : ''}Day ${p.day} · ${esc(p.time)}<span><a href="${p.data}" download="nekogaku-${p.id}.jpg">Save</a><button data-del="${p.id}">Delete</button></span></figcaption></figure>`).join('')}</div>`
-        : '<p class="empty">Nothing here yet. Take a photo with the camera button, or dress a cat up with a Halloween item and its moment is saved here.</p>';
+      body.innerHTML = slotGridHtml() + (album.length ? `<div class="album">${album.map(p => `<figure><img src="${p.data}" alt="Photo from day ${p.day}"><figcaption>${p.note ? `${esc(p.note)} · ` : ''}Day ${p.day} · ${esc(p.time)}<span><a href="${p.data}" download="nekogaku-${p.id}.jpg">Save</a><button data-del="${p.id}">Delete</button></span></figcaption></figure>`).join('')}</div>`
+        : '<p class="empty">Nothing here yet. Take a photo with the camera button, or dress a cat up with a Halloween item and its moment is saved here.</p>');
       body.querySelectorAll<HTMLElement>('[data-del]').forEach(b => b.addEventListener('click', () => { writeAlbum(readAlbum().filter(p => p.id !== b.dataset.del)); renderMenu(); }));
     } else {
       body.innerHTML = `<div class="settings">
@@ -202,6 +203,15 @@ export function startHouse(root: HTMLElement): () => void {
   // Album
   interface Photo { id: string; at: number; day: number; time: string; data: string; note?: string }
   function readAlbum(): Photo[] { try { const a = JSON.parse(localStorage.getItem(ALBUM_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch { return []; } }
+  /** Each cat's row of costume slots: opened ones show the costume name, the rest say Locked. */
+  function slotGridHtml(): string {
+    const open = world.albumSlots;
+    const rows = SLOT_CATS.map(cat => `<div class="slot-row"><b>${CAT_NAMES[cat]}</b>${SLOT_COSTUMES.map(k => {
+      const on = open.includes(slotKey(cat, k));
+      return `<span class="slot${on ? ' open' : ''}">${on ? COSTUMES[k].name : 'Locked'}</span>`;
+    }).join('')}</div>`).join('');
+    return `<section class="slots" aria-label="Costume album slots"><h3>Costume slots: ${slotCount(open)} of ${SLOT_COUNT} open</h3>${rows}</section>`;
+  }
   function writeAlbum(a: Photo[]) {
     let list = a.slice(0, 12);
     while (list.length) { try { localStorage.setItem(ALBUM_KEY, JSON.stringify(list)); return; } catch { list = list.slice(0, -1); } }
