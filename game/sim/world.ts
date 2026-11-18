@@ -35,7 +35,7 @@ export type Act =
   | { k: 'sofa'; until: number }
   | { k: 'pet'; until: number; then: Act }
   | { k: 'chase' }
-  | { k: 'feather'; step: 'stalk' | 'crouch' | 'pounce' | 'bat'; t: number; until: number }
+  | { k: 'feather'; step: 'stalk' | 'crouch' | 'pounce' | 'bat' | 'hold'; t: number; until: number }
   | { k: 'held' }
   | { k: 'fall'; vz: number }
   | { k: 'land'; until: number }
@@ -76,6 +76,8 @@ export class World {
   items: Placed[] = [];
   ball: Ball | null = null;
   feather: Pt | null = null;
+  /** The cat that has caught the feather in its mouth, and how hard the player is pulling it away. */
+  private hooked: { cat: CatId; pull: number } | null = null;
   particles: Particle[] = [];
   /** Seconds of simulation since this page opened (animation time). */
   time = 0;
@@ -197,7 +199,19 @@ export class World {
     const awake = this.cats.filter(c => !this.isBusy(c) && c.act.k !== 'feather').sort((a, b) => dist(a, to) - dist(b, to));
     for (const c of awake.slice(0, 2)) { if (this.isAsleep(c) && this.rand() < .6) continue; c.act = { k: 'chase' }; c.batCount = 0; }
   }
-  setFeather(p: Pt | null) { this.feather = p ? { x: p.x, y: p.y } : null; }
+  setFeather(p: Pt | null) {
+    this.feather = p ? { x: p.x, y: p.y } : null;
+    if (!p) this.hooked = null;
+  }
+  /** Where the feather is drawn: in the mouth of the cat holding it, otherwise under the pointer. */
+  featherAt(): Pt | null {
+    const h = this.hooked;
+    if (h && this.feather) {
+      const cat = this.getCat(h.cat);
+      if (cat) { const s = this.shapes(cat); return { x: s.head.x + cat.facing * s.head.r * .5, y: s.head.y + s.head.r * .35 }; }
+    }
+    return this.feather;
+  }
 
   placeItem(id: ItemId, p: Pt): Placed | null {
     if (!this.itemUnlocked(id)) return null;
@@ -403,10 +417,28 @@ export class World {
       if (d > 230) { a.step = 'stalk'; return; }
       if (a.t > .9 + (cat.seed % 5) * .15) { a.step = 'pounce'; a.t = 0; this.events.sound('whoosh'); }
     } else if (a.step === 'pounce') {
-      const u = Math.min(1, a.t / .45);
-      cat.z = Math.sin(u * Math.PI) * 60; this.setClip(cat, 'leap', .05);
+      const u = Math.min(1, a.t / .6);
+      cat.z = Math.sin(u * Math.PI) * 150; this.setClip(cat, 'leap', .05);
       const step = Math.min(d, 420 * dt); if (d > 30) { cat.x += (ground.x - cat.x) / d * step; cat.y += (ground.y - cat.y) / d * step; }
-      if (u >= 1) { cat.z = 0; a.step = 'bat'; a.t = 0; this.setClip(cat, 'bat', .05); this.events.sound('bat'); this.playReward(cat); if (this.rand() < .5) this.mark(cat, 'exclaim', 1); }
+      if (u >= 1) {
+        cat.z = 0;
+        // Most swats miss. A cat that reaches the feather sometimes catches it and holds on.
+        if (!this.hooked && d < 90 && this.rand() < .55) {
+          this.hooked = { cat: cat.id, pull: 0 }; a.step = 'hold'; a.t = 0; a.until = Math.max(a.until, this.time + 6);
+          this.setClip(cat, 'bite', .1); this.events.sound('meow', cat.id); this.mark(cat, 'exclaim', 1); this.playReward(cat);
+        } else {
+          a.step = 'bat'; a.t = 0; this.setClip(cat, 'bat', .05); this.events.sound('bat'); this.playReward(cat); if (this.rand() < .5) this.mark(cat, 'exclaim', 1);
+        }
+      }
+    } else if (a.step === 'hold') {
+      // Holding the feather: the cat chews it while the player pulls. Pull hard and far enough, and it lets go.
+      const h = this.hooked;
+      if (!h || h.cat !== cat.id) { a.step = 'stalk'; a.t = 0; return; }
+      h.pull = dist(cat, f) > 260 ? h.pull + dt : Math.max(0, h.pull - dt * 2);
+      a.until = Math.max(a.until, this.time + 2);
+      if (h.pull > .7 || a.t > 4) {
+        this.hooked = null; a.step = 'stalk'; a.t = 0; this.setClip(cat, 'crouch', .2); this.events.sound('bat');
+      }
     } else if (a.t > .7) { a.step = d > 150 ? 'stalk' : 'crouch'; a.t = 0; this.setClip(cat, 'crouch', .2); }
   }
 

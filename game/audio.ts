@@ -19,6 +19,8 @@ export class Audio {
   effects = true;
   music = true;
   voice = true;
+  /** False while the house is hidden behind the grimoire: its cats keep acting, but their sounds stay quiet. Music is not affected. */
+  foreground = true;
   private ctx?: AudioContext;
   private master?: GainNode;
   private musicBus?: GainNode;
@@ -47,7 +49,7 @@ export class Audio {
   }
 
   play(id: Sfx, cat?: CatId) {
-    if (!this.effects || !this.ctx || !this.master) return;
+    if (!this.foreground || !this.effects || !this.ctx || !this.master) return;
     const gap = id === 'meow' || id === 'howl' ? 700 : id === 'flap' ? 180 : id === 'purr' ? 1600 : id === 'clank' ? 300 : 60, key = id + (cat ?? ''), now = performance.now();
     if (now - (this.last.get(key) ?? 0) < gap) return;
     this.last.set(key, now);
@@ -165,5 +167,12 @@ export class Audio {
   }
   stop() { this.track = ''; window.clearTimeout(this.loopTimer); for (const s of this.sources) { try { s.stop(); } catch { /* fine */ } } this.sources = []; void this.ctx?.close(); this.ctx = undefined; }
   /** Plays a generated VOICEVOX clip (the item words). */
-  say(src: string) { if (!this.voice) return; const a = new window.Audio(src); a.volume = .9; void a.play().catch(() => undefined); }
+  say(src: string) { if (!this.foreground || !this.voice) return; const a = new window.Audio(src); a.volume = .9; void a.play().catch(() => undefined); }
 }
+
+let shared: Audio | undefined;
+/**
+ * One audio engine for the whole page. The house is remounted by React (and twice in development),
+ * so each mount must reuse the running engine instead of closing it and starting over.
+ */
+export function sharedAudio(): Audio { return shared ??= new Audio(); }

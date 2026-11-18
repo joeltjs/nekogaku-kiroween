@@ -4,7 +4,7 @@
  */
 import { drawCat, drawPortrait } from './art/cat-rig';
 import { sampleClip } from './art/cat-clips';
-import { Audio } from './audio';
+import { sharedAudio } from './audio';
 import { ITEMS, ITEM_IDS, COSTUMES, type ItemId } from './halloween/items';
 import { Renderer } from './render';
 import { PHASE_LABELS, clockText } from './sim/clock';
@@ -66,7 +66,7 @@ export function startHouse(root: HTMLElement): () => void {
   const $ = <T extends Element = HTMLElement>(sel: string) => root.querySelector(sel) as T;
   const canvas = $<HTMLCanvasElement>('canvas.world');
   const world = new World();
-  const audio = new Audio();
+  const audio = sharedAudio();
   const prefs = (() => { try { return { music: true, effects: true, voice: true, ...JSON.parse(localStorage.getItem(PREFS_KEY) || '{}') }; } catch { return { music: true, effects: true, voice: true }; } })();
   audio.music = prefs.music; audio.effects = prefs.effects; audio.voice = prefs.voice;
   const renderer = new Renderer(canvas, world);
@@ -355,9 +355,10 @@ export function startHouse(root: HTMLElement): () => void {
   }
   function frame(now: number) {
     if (!alive) return;
+    audio.foreground = root.getClientRects().length > 0;
     const dt = Math.min(.05, (now - last) / 1000); last = now;
     world.step(dt);
-    if (root.getClientRects().length) renderer.draw(mode === 'feather' ? feather : null);
+    if (root.getClientRects().length) renderer.draw(world.featherAt());
     if ((hudAge += dt) > .25) { hudAge = 0; hud(); }
     serverAge += dt;
     if ((saveAge += dt) > 5) { saveAge = 0; save(); }
@@ -368,7 +369,8 @@ export function startHouse(root: HTMLElement): () => void {
   (window as unknown as { nekogaku?: unknown }).nekogaku = { world, renderer, audio };
 
   return () => {
-    alive = false; save(true); audio.stop();
+    // The audio engine outlives this mount: stopping it here would cut the music on every remount.
+    alive = false; save(true);
     window.removeEventListener('focus', onFocus);
     window.removeEventListener('resize', onResize); window.removeEventListener('pagehide', onHide);
     window.removeEventListener('nekogaku:sound', onSound);
